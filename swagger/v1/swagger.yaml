@@ -1,0 +1,757 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/community_items":
+    get:
+      summary: List community items (published only when public; all when authenticated)
+      tags:
+      - Community Items
+      responses:
+        '200':
+          description: ok (authenticated includes drafts)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  community_items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        title:
+                          type: string
+                        description:
+                          type: string
+                        url:
+                          type: string
+                          nullable: true
+                        role:
+                          type: string
+                          nullable: true
+                        year:
+                          type: string
+                          nullable: true
+                        position:
+                          type: integer
+                          nullable: true
+                        published:
+                          type: boolean
+                      required:
+                      - id
+                      - title
+                      - description
+                      - published
+                required:
+                - community_items
+    post:
+      summary: Create community item
+      tags:
+      - Community Items
+      parameters: []
+      responses:
+        '201':
+          description: created
+        '401':
+          description: unauthenticated
+        '422':
+          description: invalid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                community_item:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    url:
+                      type: string
+                      nullable: true
+                    role:
+                      type: string
+                      nullable: true
+                    year:
+                      type: string
+                      nullable: true
+                    position:
+                      type: integer
+                      nullable: true
+                    published:
+                      type: boolean
+                  required:
+                  - id
+                  - title
+                  - description
+                  - published
+              required:
+              - community_item
+  "/api/v1/community_items/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    patch:
+      summary: Update community item
+      tags:
+      - Community Items
+      parameters: []
+      responses:
+        '200':
+          description: updated
+        '401':
+          description: unauthenticated
+        '422':
+          description: invalid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                community_item:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    url:
+                      type: string
+                      nullable: true
+                    role:
+                      type: string
+                      nullable: true
+                    year:
+                      type: string
+                      nullable: true
+                    position:
+                      type: integer
+                      nullable: true
+                    published:
+                      type: boolean
+                  required:
+                  - id
+                  - title
+                  - description
+                  - published
+              required:
+              - community_item
+    delete:
+      summary: Destroy community item
+      tags:
+      - Community Items
+      responses:
+        '204':
+          description: destroyed
+        '401':
+          description: unauthenticated
+  "/api/v1/contact_messages":
+    post:
+      summary: Submit a contact message
+      tags:
+      - Contact Messages
+      parameters: []
+      responses:
+        '201':
+          description: created
+        '422':
+          description: invalid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contact_message:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    email:
+                      type: string
+                    message:
+                      type: string
+                  required:
+                  - name
+                  - email
+                  - message
+              required:
+              - contact_message
+    get:
+      summary: List unread contact messages
+      tags:
+      - Contact Messages
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  contact_messages:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        email:
+                          type: string
+                        message:
+                          type: string
+                        read_at:
+                          type: string
+                          format: date-time
+                          nullable: true
+                        created_at:
+                          type: string
+                          format: date-time
+                      required:
+                      - id
+                      - name
+                      - email
+                      - message
+                required:
+                - contact_messages
+        '401':
+          description: unauthenticated
+  "/api/v1/contact_messages/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    patch:
+      summary: Mark a contact message as read
+      tags:
+      - Contact Messages
+      responses:
+        '200':
+          description: marked read
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  contact_message:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      email:
+                        type: string
+                      message:
+                        type: string
+                      read_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      created_at:
+                        type: string
+                        format: date-time
+                    required:
+                    - id
+                    - name
+                    - email
+                    - message
+                required:
+                - contact_message
+        '401':
+          description: unauthenticated
+  "/api/v1/faq_items":
+    get:
+      summary: List FAQ items (published only when public; all when authenticated)
+      tags:
+      - FAQ Items
+      responses:
+        '200':
+          description: ok (authenticated includes drafts)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  faq_items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        question:
+                          type: string
+                        answer:
+                          type: string
+                        position:
+                          type: integer
+                          nullable: true
+                        published:
+                          type: boolean
+                      required:
+                      - id
+                      - question
+                      - answer
+                      - published
+                required:
+                - faq_items
+    post:
+      summary: Create FAQ item
+      tags:
+      - FAQ Items
+      parameters: []
+      responses:
+        '201':
+          description: created
+        '401':
+          description: unauthenticated
+        '422':
+          description: invalid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                faq_item:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    question:
+                      type: string
+                    answer:
+                      type: string
+                    position:
+                      type: integer
+                      nullable: true
+                    published:
+                      type: boolean
+                  required:
+                  - id
+                  - question
+                  - answer
+                  - published
+              required:
+              - faq_item
+  "/api/v1/faq_items/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    patch:
+      summary: Update FAQ item
+      tags:
+      - FAQ Items
+      parameters: []
+      responses:
+        '200':
+          description: updated
+        '401':
+          description: unauthenticated
+        '422':
+          description: invalid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                faq_item:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    question:
+                      type: string
+                    answer:
+                      type: string
+                    position:
+                      type: integer
+                      nullable: true
+                    published:
+                      type: boolean
+                  required:
+                  - id
+                  - question
+                  - answer
+                  - published
+              required:
+              - faq_item
+    delete:
+      summary: Destroy FAQ item
+      tags:
+      - FAQ Items
+      responses:
+        '204':
+          description: destroyed
+        '401':
+          description: unauthenticated
+  "/api/v1/projects":
+    get:
+      summary: List projects (published only when public; all when authenticated)
+      tags:
+      - Projects
+      responses:
+        '200':
+          description: ok (authenticated includes drafts)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  projects:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        title:
+                          type: string
+                        tagline:
+                          type: string
+                        description:
+                          type: string
+                        tech_stack:
+                          type: string
+                        cover_image_url:
+                          type: string
+                          nullable: true
+                        live_url:
+                          type: string
+                          nullable: true
+                        repo_url:
+                          type: string
+                          nullable: true
+                        featured:
+                          type: boolean
+                        position:
+                          type: integer
+                          nullable: true
+                        published:
+                          type: boolean
+                      required:
+                      - id
+                      - title
+                      - tagline
+                      - description
+                      - tech_stack
+                      - featured
+                      - published
+                required:
+                - projects
+    post:
+      summary: Create project
+      tags:
+      - Projects
+      parameters: []
+      responses:
+        '201':
+          description: created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  project:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      title:
+                        type: string
+                      tagline:
+                        type: string
+                      description:
+                        type: string
+                      tech_stack:
+                        type: string
+                      cover_image_url:
+                        type: string
+                        nullable: true
+                      live_url:
+                        type: string
+                        nullable: true
+                      repo_url:
+                        type: string
+                        nullable: true
+                      featured:
+                        type: boolean
+                      position:
+                        type: integer
+                        nullable: true
+                      published:
+                        type: boolean
+                    required:
+                    - id
+                    - title
+                    - tagline
+                    - description
+                    - tech_stack
+                    - featured
+                    - published
+                required:
+                - project
+        '401':
+          description: unauthenticated
+        '422':
+          description: invalid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                project:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    title:
+                      type: string
+                    tagline:
+                      type: string
+                    description:
+                      type: string
+                    tech_stack:
+                      type: string
+                    cover_image_url:
+                      type: string
+                      nullable: true
+                    live_url:
+                      type: string
+                      nullable: true
+                    repo_url:
+                      type: string
+                      nullable: true
+                    featured:
+                      type: boolean
+                    position:
+                      type: integer
+                      nullable: true
+                    published:
+                      type: boolean
+                  required:
+                  - id
+                  - title
+                  - tagline
+                  - description
+                  - tech_stack
+                  - featured
+                  - published
+              required:
+              - project
+  "/api/v1/projects/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Show project (published only when public; any when authenticated)
+      tags:
+      - Projects
+      responses:
+        '200':
+          description: draft visible to authenticated admin
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  project:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      title:
+                        type: string
+                      tagline:
+                        type: string
+                      description:
+                        type: string
+                      tech_stack:
+                        type: string
+                      cover_image_url:
+                        type: string
+                        nullable: true
+                      live_url:
+                        type: string
+                        nullable: true
+                      repo_url:
+                        type: string
+                        nullable: true
+                      featured:
+                        type: boolean
+                      position:
+                        type: integer
+                        nullable: true
+                      published:
+                        type: boolean
+                    required:
+                    - id
+                    - title
+                    - tagline
+                    - description
+                    - tech_stack
+                    - featured
+                    - published
+                required:
+                - project
+        '404':
+          description: draft hidden from public
+    patch:
+      summary: Update project
+      tags:
+      - Projects
+      parameters: []
+      responses:
+        '200':
+          description: updated
+        '401':
+          description: unauthenticated
+        '422':
+          description: invalid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                project:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    title:
+                      type: string
+                    tagline:
+                      type: string
+                    description:
+                      type: string
+                    tech_stack:
+                      type: string
+                    cover_image_url:
+                      type: string
+                      nullable: true
+                    live_url:
+                      type: string
+                      nullable: true
+                    repo_url:
+                      type: string
+                      nullable: true
+                    featured:
+                      type: boolean
+                    position:
+                      type: integer
+                      nullable: true
+                    published:
+                      type: boolean
+                  required:
+                  - id
+                  - title
+                  - tagline
+                  - description
+                  - tech_stack
+                  - featured
+                  - published
+              required:
+              - project
+    delete:
+      summary: Destroy project
+      tags:
+      - Projects
+      responses:
+        '204':
+          description: destroyed
+        '401':
+          description: unauthenticated
+  "/api/v1/session":
+    post:
+      summary: Login (create session)
+      tags:
+      - Sessions
+      parameters: []
+      responses:
+        '200':
+          description: logged in
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      email:
+                        type: string
+                    required:
+                    - id
+                    - email
+                required:
+                - user
+        '401':
+          description: invalid credentials
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+              - email
+              - password
+    delete:
+      summary: Logout (destroy session)
+      tags:
+      - Sessions
+      responses:
+        '204':
+          description: logged out
+        '401':
+          description: not logged in
+    get:
+      summary: Current session
+      tags:
+      - Sessions
+      responses:
+        '200':
+          description: authenticated
+        '401':
+          description: unauthenticated
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:5001
