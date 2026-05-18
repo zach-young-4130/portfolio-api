@@ -2,6 +2,7 @@ module Api
   module V1
     class ContactMessagesController < BaseController
       skip_before_action :authenticate!, only: %i[create]
+      before_action :authorize_admin!, only: %i[index update]
 
       def index
         render_success(contact_messages: ContactMessageBlueprint.render_as_hash(ContactMessage.unread))
@@ -10,15 +11,15 @@ module Api
       def create
         message = ContactMessage.new(message_params)
         if message.save
-          render_created(contact_message: ContactMessageBlueprint.render_as_hash(message))
+          render_success(contact_message: ContactMessageBlueprint.render_as_hash(message), status: :created)
         else
-          render_validation_errors(message)
+          render_error(message)
         end
       end
 
       def update
         message = ContactMessage.find_by(id: params[:id])
-        return render_not_found unless message
+        return render_error("Contact message not found", status: :not_found) unless message
 
         message.update!(read_at: Time.current)
         render_success(contact_message: ContactMessageBlueprint.render_as_hash(message))

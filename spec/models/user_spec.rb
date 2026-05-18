@@ -18,7 +18,7 @@ RSpec.describe User, type: :model do
       expect(user).not_to be_valid
     end
 
-    it "requires a password of at least 8 characters" do
+    it "requires a password of at least 12 characters" do
       user = build(:user, password: "short")
       expect(user).not_to be_valid
     end
@@ -26,12 +26,12 @@ RSpec.describe User, type: :model do
 
   describe "#authenticate" do
     it "returns the user for the correct password" do
-      user = create(:user, password: "password123")
-      expect(user.authenticate("password123")).to eq(user)
+      user = create(:user, password: "password1234")
+      expect(user.authenticate("password1234")).to eq(user)
     end
 
     it "returns false for the wrong password" do
-      user = create(:user, password: "password123")
+      user = create(:user, password: "password1234")
       expect(user.authenticate("wrong")).to be(false)
     end
   end
@@ -40,6 +40,33 @@ RSpec.describe User, type: :model do
     it "downcases and strips whitespace" do
       user = create(:user, email: "  Admin@Example.com  ")
       expect(user.email).to eq("admin@example.com")
+    end
+  end
+
+  describe "lockout" do
+    it "is not locked by default" do
+      expect(create(:user)).not_to be_locked
+    end
+
+    it "locks after MAX_FAILED_ATTEMPTS register_failed_attempt! calls" do
+      user = create(:user)
+      User::MAX_FAILED_ATTEMPTS.times { user.register_failed_attempt! }
+      expect(user.reload).to be_locked
+      expect(user.locked_until).to be > Time.current
+    end
+
+    it "is not locked after fewer than MAX_FAILED_ATTEMPTS" do
+      user = create(:user)
+      (User::MAX_FAILED_ATTEMPTS - 1).times { user.register_failed_attempt! }
+      expect(user.reload).not_to be_locked
+    end
+
+    it "reset_failed_attempts! clears counter and lock" do
+      user = create(:user)
+      User::MAX_FAILED_ATTEMPTS.times { user.register_failed_attempt! }
+      user.reset_failed_attempts!
+      expect(user.reload.failed_attempts).to eq(0)
+      expect(user.locked_until).to be_nil
     end
   end
 end

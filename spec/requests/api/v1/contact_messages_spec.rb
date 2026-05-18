@@ -53,7 +53,7 @@ RSpec.describe "api/v1/contact_messages", type: :request do
       parameter name: :Authorization, in: :header, type: :string, required: false
 
       response(200, "ok") do
-        let(:user) { create(:user, password: "password123") }
+        let(:user) { create(:user, :admin, password: "password1234") }
         before do
           create(:contact_message)
           login_as(user)
@@ -84,7 +84,7 @@ RSpec.describe "api/v1/contact_messages", type: :request do
       parameter name: :Authorization, in: :header, type: :string, required: false
 
       response(200, "marked read") do
-        let(:user) { create(:user, password: "password123") }
+        let(:user) { create(:user, :admin, password: "password1234") }
         let(:message) { create(:contact_message) }
         let(:id) { message.id }
         before { login_as(user) }

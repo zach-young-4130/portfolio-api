@@ -25,6 +25,7 @@ end
 
 User.find_or_initialize_by(email: admin[:email]).tap do |user|
   user.password = admin[:password]
+  user.role     = "admin"
   user.save!
 end
 

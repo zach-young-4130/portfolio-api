@@ -10,31 +10,41 @@ module Api
       # Public callers see only published records; an authenticated admin sees
       # every record so they can manage drafts.
       def visible_scope_for(model_class)
-        current_user ? model_class.order(:position) : model_class.published
+        current_user&.admin? ? model_class.order(:position) : model_class.published
+      end
+
+      # 403 if the caller isn't an admin. Mount via before_action on any
+      # endpoint that writes admin content.
+      def authorize_admin!
+        return if current_user&.admin?
+        render_error("Forbidden", status: :forbidden)
       end
 
       # ---- Response helpers ---------------------------------------------------
+      #
+      # Every endpoint returns either render_success or render_error. Payloads
+      # passed to render_success should already be Blueprinter hashes — these
+      # helpers only own the envelope (status + json wrapper), not serialization.
 
-      # render_success(project: blueprint_hash)               → 200
+      # render_success(project: blueprint_hash)                  → 200
       # render_success(project: blueprint_hash, status: :created) → 201
       def render_success(status: :ok, **payload)
         render json: payload, status: status
       end
 
-      # 201-flavored success: render_created(project: blueprint_hash)
-      def render_created(**payload)
-        render_success(status: :created, **payload)
-      end
-
-      # 422 with the AR errors hash the frontend type-narrows on.
-      def render_validation_errors(record)
-        render json: { errors: record.errors.as_json(full_messages: true) },
-               status: :unprocessable_entity
-      end
-
-      # 404 — the find_by-returns-nil shortcut.
-      def render_not_found
-        head :not_found
+      # Accepts: an ActiveRecord record (uses its .errors), a String, a Symbol,
+      # an Array of strings, or any object responding to #to_s. Always emits
+      # { errors: [...] } so the frontend can type-narrow on a single shape.
+      # Pass `extra:` for structured fields the frontend needs alongside the
+      # message (e.g. `extra: { locked_until: iso8601 }` for lockout state).
+      def render_error(error, status: :unprocessable_entity, extra: {})
+        errors =
+          case error
+          when ActiveRecord::Base then error.errors.as_json(full_messages: true)
+          when Array then error.map(&:to_s)
+          else [ error.to_s ]
+          end
+        render json: { errors: errors, **extra }, status: status
       end
     end
   end

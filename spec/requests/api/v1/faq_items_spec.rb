@@ -39,7 +39,7 @@ RSpec.describe "api/v1/faq_items", type: :request do
       end
 
       response(200, "ok (authenticated includes drafts)") do
-        let(:user) { create(:user, password: "password123") }
+        let(:user) { create(:user, :admin, password: "password1234") }
 
         before do
           create(:faq_item, question: "Public?", published: true)
@@ -68,7 +68,7 @@ RSpec.describe "api/v1/faq_items", type: :request do
       }
 
       response(201, "created") do
-        let(:user) { create(:user, password: "password123") }
+        let(:user) { create(:user, :admin, password: "password1234") }
         let(:body) { { faq_item: attributes_for(:faq_item) } }
         before { login_as(user) }
         let(:Authorization) { @auth_headers["Authorization"] }
@@ -81,7 +81,7 @@ RSpec.describe "api/v1/faq_items", type: :request do
       end
 
       response(422, "invalid") do
-        let(:user) { create(:user, password: "password123") }
+        let(:user) { create(:user, :admin, password: "password1234") }
         let(:body) { { faq_item: attributes_for(:faq_item, question: "") } }
         before { login_as(user) }
         let(:Authorization) { @auth_headers["Authorization"] }
@@ -106,7 +106,7 @@ RSpec.describe "api/v1/faq_items", type: :request do
       }
 
       response(200, "updated") do
-        let(:user) { create(:user, password: "password123") }
+        let(:user) { create(:user, :admin, password: "password1234") }
         let(:item) { create(:faq_item) }
         let(:id) { item.id }
         let(:body) { { faq_item: { question: "Updated?" } } }
@@ -123,7 +123,7 @@ RSpec.describe "api/v1/faq_items", type: :request do
       end
 
       response(422, "invalid") do
-        let(:user) { create(:user, password: "password123") }
+        let(:user) { create(:user, :admin, password: "password1234") }
         let(:item) { create(:faq_item) }
         let(:id) { item.id }
         let(:body) { { faq_item: { question: "" } } }
@@ -139,7 +139,7 @@ RSpec.describe "api/v1/faq_items", type: :request do
       parameter name: :Authorization, in: :header, type: :string, required: false
 
       response(204, "destroyed") do
-        let(:user) { create(:user, password: "password123") }
+        let(:user) { create(:user, :admin, password: "password1234") }
         let(:item) { create(:faq_item) }
         let(:id) { item.id }
         before { login_as(user) }

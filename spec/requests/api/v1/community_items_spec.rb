@@ -42,7 +42,7 @@ RSpec.describe "api/v1/community_items", type: :request do
       end
 
       response(200, "ok (authenticated includes drafts)") do
-        let(:user) { create(:user, password: "password123") }
+        let(:user) { create(:user, :admin, password: "password1234") }
 
         before do
           create(:community_item, title: "Public", published: true)
@@ -71,7 +71,7 @@ RSpec.describe "api/v1/community_items", type: :request do
       }
 
       response(201, "created") do
-        let(:user) { create(:user, password: "password123") }
+        let(:user) { create(:user, :admin, password: "password1234") }
         let(:body) { { community_item: attributes_for(:community_item) } }
         before { login_as(user) }
         let(:Authorization) { @auth_headers["Authorization"] }
@@ -84,7 +84,7 @@ RSpec.describe "api/v1/community_items", type: :request do
       end
 
       response(422, "invalid") do
-        let(:user) { create(:user, password: "password123") }
+        let(:user) { create(:user, :admin, password: "password1234") }
         let(:body) { { community_item: attributes_for(:community_item, title: "") } }
         before { login_as(user) }
         let(:Authorization) { @auth_headers["Authorization"] }
@@ -109,7 +109,7 @@ RSpec.describe "api/v1/community_items", type: :request do
       }
 
       response(200, "updated") do
-        let(:user) { create(:user, password: "password123") }
+        let(:user) { create(:user, :admin, password: "password1234") }
         let(:item) { create(:community_item) }
         let(:id) { item.id }
         let(:body) { { community_item: { title: "Updated" } } }
@@ -126,7 +126,7 @@ RSpec.describe "api/v1/community_items", type: :request do
       end
 
       response(422, "invalid") do
-        let(:user) { create(:user, password: "password123") }
+        let(:user) { create(:user, :admin, password: "password1234") }
         let(:item) { create(:community_item) }
         let(:id) { item.id }
         let(:body) { { community_item: { title: "" } } }
@@ -142,7 +142,7 @@ RSpec.describe "api/v1/community_items", type: :request do
       parameter name: :Authorization, in: :header, type: :string, required: false
 
       response(204, "destroyed") do
-        let(:user) { create(:user, password: "password123") }
+        let(:user) { create(:user, :admin, password: "password1234") }
         let(:item) { create(:community_item) }
         let(:id) { item.id }
         before { login_as(user) }

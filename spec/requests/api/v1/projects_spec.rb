@@ -47,7 +47,7 @@ RSpec.describe "api/v1/projects", type: :request do
       end
 
       response(200, "ok (authenticated includes drafts)") do
-        let(:user) { create(:user, password: "password123") }
+        let(:user) { create(:user, :admin, password: "password1234") }
 
         before do
           create(:project, title: "Public", published: true)
@@ -78,7 +78,7 @@ RSpec.describe "api/v1/projects", type: :request do
       }
 
       response(201, "created") do
-        let(:user) { create(:user, password: "password123") }
+        let(:user) { create(:user, :admin, password: "password1234") }
         let(:project) { { project: attributes_for(:project) } }
         before { login_as(user) }
         let(:Authorization) { @auth_headers["Authorization"] }
@@ -92,7 +92,7 @@ RSpec.describe "api/v1/projects", type: :request do
       end
 
       response(422, "invalid") do
-        let(:user) { create(:user, password: "password123") }
+        let(:user) { create(:user, :admin, password: "password1234") }
         let(:project) { { project: attributes_for(:project, title: "") } }
         before { login_as(user) }
         let(:Authorization) { @auth_headers["Authorization"] }
@@ -128,7 +128,7 @@ RSpec.describe "api/v1/projects", type: :request do
       end
 
       response(200, "draft visible to authenticated admin") do
-        let(:user) { create(:user, password: "password123") }
+        let(:user) { create(:user, :admin, password: "password1234") }
         let(:project_record) { create(:project, published: false) }
         let(:id) { project_record.id }
         before { login_as(user) }
@@ -150,7 +150,7 @@ RSpec.describe "api/v1/projects", type: :request do
       }
 
       response(200, "updated") do
-        let(:user) { create(:user, password: "password123") }
+        let(:user) { create(:user, :admin, password: "password1234") }
         let(:project_record) { create(:project) }
         let(:id) { project_record.id }
         let(:body) { { project: { title: "Updated" } } }
@@ -167,7 +167,7 @@ RSpec.describe "api/v1/projects", type: :request do
       end
 
       response(422, "invalid") do
-        let(:user) { create(:user, password: "password123") }
+        let(:user) { create(:user, :admin, password: "password1234") }
         let(:project_record) { create(:project) }
         let(:id) { project_record.id }
         let(:body) { { project: { title: "" } } }
@@ -183,7 +183,7 @@ RSpec.describe "api/v1/projects", type: :request do
       parameter name: :Authorization, in: :header, type: :string, required: false
 
       response(204, "destroyed") do
-        let(:user) { create(:user, password: "password123") }
+        let(:user) { create(:user, :admin, password: "password1234") }
         let(:project_record) { create(:project) }
         let(:id) { project_record.id }
         before { login_as(user) }
