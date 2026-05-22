@@ -1,7 +1,5 @@
 class User < ApplicationRecord
-  # Default validations require a password; we manage that ourselves so
-  # Google-only users can exist without one.
-  has_secure_password validations: false
+  has_secure_password
 
   normalizes :email, with: ->(email) { email.strip.downcase }
 
@@ -15,7 +13,6 @@ class User < ApplicationRecord
             format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, length: { minimum: 12 }, allow_nil: true
   validates :role, inclusion: { in: ROLES }
-  validate  :must_have_auth_method
 
   scope :admins, -> { where(role: "admin") }
 
@@ -44,12 +41,4 @@ class User < ApplicationRecord
     update_columns(failed_attempts: 0, locked_until: nil)
   end
 
-  private
-
-  # A user must have at least one way to authenticate — a password or a
-  # linked Google account. Prevents creating "ghost" users with neither.
-  def must_have_auth_method
-    return if password_digest.present? || google_uid.present?
-    errors.add(:base, "must have a password or a linked Google account")
-  end
 end

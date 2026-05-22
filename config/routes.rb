@@ -6,9 +6,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resource :session, only: %i[create destroy show] do
-        post "google", action: :create_google
-      end
+      resource :session, only: %i[create destroy show]
       resources :projects, only: %i[index show create update destroy]
       resources :faq_items, only: %i[index create update destroy]
       resources :community_items, only: %i[index create update destroy]

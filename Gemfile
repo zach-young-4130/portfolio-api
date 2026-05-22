@@ -41,9 +41,6 @@ gem "blueprinter"
 # Rate-limiting / brute-force throttling on sensitive endpoints
 gem "rack-attack"
 
-# Verify Google Identity Services ID tokens server-side
-gem "google-id-token"
-
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
