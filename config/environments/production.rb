@@ -78,7 +78,8 @@ Rails.application.configure do
   # Enable DNS rebinding protection and other `Host` header attacks.
   config.hosts = [
     "api.zachyoung.com",
-    /.*\.zachyoung\.com/
+    /.*\.zachyoung\.com/,
+    "portfolio-api-divine-leaf-7748.fly.dev"
   ]
   config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 end
