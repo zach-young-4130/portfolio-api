@@ -18,9 +18,7 @@ module Api
       end
 
       def update
-        item = CommunityItem.find_by(id: params[:id])
-        return render_error("Community item not found", status: :not_found) unless item
-
+        item = find_resource_or_404(CommunityItem) or return
         if item.update(community_item_params)
           render_success(community_item: CommunityItemBlueprint.render_as_hash(load_item(item.id)))
         else
@@ -29,9 +27,7 @@ module Api
       end
 
       def destroy
-        item = CommunityItem.find_by(id: params[:id])
-        return render_error("Community item not found", status: :not_found) unless item
-
+        item = find_resource_or_404(CommunityItem) or return
         item.destroy
         head :no_content
       end

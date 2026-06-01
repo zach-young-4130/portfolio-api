@@ -18,9 +18,7 @@ module Api
       end
 
       def update
-        item = FaqItem.find_by(id: params[:id])
-        return render_error("FAQ item not found", status: :not_found) unless item
-
+        item = find_resource_or_404(FaqItem) or return
         if item.update(faq_item_params)
           render_success(faq_item: FaqItemBlueprint.render_as_hash(item))
         else
@@ -29,9 +27,7 @@ module Api
       end
 
       def destroy
-        item = FaqItem.find_by(id: params[:id])
-        return render_error("FAQ item not found", status: :not_found) unless item
-
+        item = find_resource_or_404(FaqItem) or return
         item.destroy
         head :no_content
       end

@@ -30,9 +30,7 @@ module Api
       end
 
       def update
-        project = Project.find_by(id: params[:id])
-        return render_error("Project not found", status: :not_found) unless project
-
+        project = find_resource_or_404(Project) or return
         if project.update(project_params)
           render_success(project: ProjectBlueprint.render_as_hash(load_project(project.id)))
         else
@@ -41,9 +39,7 @@ module Api
       end
 
       def destroy
-        project = Project.find_by(id: params[:id])
-        return render_error("Project not found", status: :not_found) unless project
-
+        project = find_resource_or_404(Project) or return
         project.destroy
         head :no_content
       end

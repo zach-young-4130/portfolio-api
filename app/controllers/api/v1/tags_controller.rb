@@ -18,9 +18,7 @@ module Api
       end
 
       def update
-        tag = Tag.find_by(id: params[:id])
-        return render_error("Tag not found", status: :not_found) unless tag
-
+        tag = find_resource_or_404(Tag) or return
         if tag.update(tag_params)
           render_success(tag: TagBlueprint.render_as_hash(tag))
         else
@@ -29,9 +27,7 @@ module Api
       end
 
       def destroy
-        tag = Tag.find_by(id: params[:id])
-        return render_error("Tag not found", status: :not_found) unless tag
-
+        tag = find_resource_or_404(Tag) or return
         tag.destroy
         head :no_content
       end

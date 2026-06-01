@@ -18,9 +18,7 @@ module Api
       end
 
       def update
-        message = ContactMessage.find_by(id: params[:id])
-        return render_error("Contact message not found", status: :not_found) unless message
-
+        message = find_resource_or_404(ContactMessage) or return
         message.update!(read_at: Time.current)
         render_success(contact_message: ContactMessageBlueprint.render_as_hash(message))
       end

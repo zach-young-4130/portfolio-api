@@ -26,6 +26,15 @@ module Api
       # passed to render_success should already be Blueprinter hashes — these
       # helpers only own the envelope (status + json wrapper), not serialization.
 
+      # find_resource_or_404(Project) — finds by params[:id], renders 404 and
+      # returns nil if missing. Controllers call `return` on nil to halt:
+      #   project = find_resource_or_404(Project) or return
+      def find_resource_or_404(model_class, id: params[:id])
+        model_class.find_by(id: id).tap do |record|
+          render_error("#{model_class.name} not found", status: :not_found) unless record
+        end
+      end
+
       # render_success(project: blueprint_hash)                  → 200
       # render_success(project: blueprint_hash, status: :created) → 201
       def render_success(status: :ok, **payload)

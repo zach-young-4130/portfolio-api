@@ -18,9 +18,7 @@ module Api
       end
 
       def update
-        technology = Technology.find_by(id: params[:id])
-        return render_error("Technology not found", status: :not_found) unless technology
-
+        technology = find_resource_or_404(Technology) or return
         if technology.update(technology_params)
           render_success(technology: TechnologyBlueprint.render_as_hash(technology))
         else
@@ -29,9 +27,7 @@ module Api
       end
 
       def destroy
-        technology = Technology.find_by(id: params[:id])
-        return render_error("Technology not found", status: :not_found) unless technology
-
+        technology = find_resource_or_404(Technology) or return
         technology.destroy
         head :no_content
       end
