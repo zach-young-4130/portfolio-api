@@ -238,6 +238,12 @@ faq_items = [
     answer: "Directly. I'd rather have a 10-minute conversation than a week of back-and-forth tickets. I ask questions early, flag tradeoffs when I see them, and try to ship things that don't need a follow-up PR to fix.",
     position: 7,
     published: true
+  },
+  {
+    question: "How is this portfolio hosted?",
+    answer: "The Angular frontend is deployed on Vercel. The Rails API, PostgreSQL database, and all backend infrastructure are hosted and deployed on Fly.io.",
+    position: 8,
+    published: true
   }
 ]
 
