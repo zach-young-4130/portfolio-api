@@ -199,7 +199,7 @@ Project.where.not(id: seeded_project_ids).destroy_all
 faq_items = [
   {
     question: "What stack do you specialize in?",
-    answer: "Ruby on Rails on the backend and Angular or Hotwire on the frontend, with PostgreSQL.",
+    answer: "I specialize in Rails API-only or full-stack using JS frameworks like Hotwire, Turbo, and Stimulus or TypeScript Angular.",
     position: 1,
     published: true
   },
