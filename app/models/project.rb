@@ -7,11 +7,25 @@ class Project < ApplicationRecord
   has_many :tags, through: :taggings
 
   validates :title, :tagline, :description, :tech_stack, presence: true
-  validates :published, inclusion: { in: [true, false] }
-  validates :featured, inclusion: { in: [true, false] }
+  validates :published, inclusion: { in: [ true, false ] }
+  validates :featured, inclusion: { in: [ true, false ] }
 
   scope :published, -> { where(published: true).order(:position) }
   scope :featured, -> { published.where(featured: true) }
   scope :by_tag, ->(slug) { joins(:tags).where(tags: { slug: slug }) }
   scope :by_technology, ->(slug) { joins(:technologies).where(technologies: { slug: slug }) }
+  scope :search, ->(query) {
+    return all if query.blank?
+    where(
+      <<~SQL,
+        (
+          setweight(to_tsvector('english', coalesce(title, '')),    'A') ||
+          setweight(to_tsvector('english', coalesce(tagline, '')),   'A') ||
+          setweight(to_tsvector('english', coalesce(tech_stack, '')), 'B') ||
+          setweight(to_tsvector('english', coalesce(description, '')), 'C')
+        ) @@ plainto_tsquery('english', ?)
+      SQL
+      query
+    )
+  }
 end

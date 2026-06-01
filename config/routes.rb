@@ -13,6 +13,9 @@ Rails.application.routes.draw do
       resources :contact_messages, only: %i[index create update]
       resources :technologies, only: %i[index create update destroy]
       resources :tags, only: %i[index create update destroy]
+      resources :page_views, only: %i[create] do
+        collection { get :stats }
+      end
     end
   end
 end

@@ -6,7 +6,8 @@ module Api
 
       def index
         scope = visible_scope_for(Project).includes(:technologies, :tags)
-        scope = scope.by_tag(params[:tag]) if params[:tag].present?
+        scope = scope.search(params[:q])          if params[:q].present?
+        scope = scope.by_tag(params[:tag])        if params[:tag].present?
         scope = scope.by_technology(params[:technology]) if params[:technology].present?
         render_success(projects: ProjectBlueprint.render_as_hash(scope))
       end
