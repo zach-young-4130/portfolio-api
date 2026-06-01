@@ -15,9 +15,34 @@ PROJECT_SCHEMA = {
     position: { type: :integer, nullable: true },
     published: { type: :boolean },
     project_start: { type: :string, format: "date", nullable: true },
-    project_end: { type: :string, format: "date", nullable: true }
+    project_end: { type: :string, format: "date", nullable: true },
+    technologies: {
+      type: :array,
+      items: {
+        type: :object,
+        properties: {
+          id: { type: :integer },
+          name: { type: :string },
+          slug: { type: :string },
+          category: { type: :string, nullable: true }
+        },
+        required: %w[id name slug]
+      }
+    },
+    tags: {
+      type: :array,
+      items: {
+        type: :object,
+        properties: {
+          id: { type: :integer },
+          name: { type: :string },
+          slug: { type: :string }
+        },
+        required: %w[id name slug]
+      }
+    }
   },
-  required: %w[id title tagline description tech_stack featured published]
+  required: %w[id title tagline description tech_stack featured published technologies tags]
 }.freeze
 
 RSpec.describe "api/v1/projects", type: :request do

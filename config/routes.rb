@@ -11,6 +11,8 @@ Rails.application.routes.draw do
       resources :faq_items, only: %i[index create update destroy]
       resources :community_items, only: %i[index create update destroy]
       resources :contact_messages, only: %i[index create update]
+      resources :technologies, only: %i[index create update destroy]
+      resources :tags, only: %i[index create update destroy]
     end
   end
 end

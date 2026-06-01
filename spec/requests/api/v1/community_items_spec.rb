@@ -9,10 +9,23 @@ COMMUNITY_ITEM_SCHEMA = {
     url: { type: :string, nullable: true },
     role: { type: :string, nullable: true },
     year: { type: :string, nullable: true },
+    tech_stack: { type: :string, nullable: true },
     position: { type: :integer, nullable: true },
-    published: { type: :boolean }
+    published: { type: :boolean },
+    tags: {
+      type: :array,
+      items: {
+        type: :object,
+        properties: {
+          id: { type: :integer },
+          name: { type: :string },
+          slug: { type: :string }
+        },
+        required: %w[id name slug]
+      }
+    }
   },
-  required: %w[id title description published]
+  required: %w[id title description published tags]
 }.freeze
 
 RSpec.describe "api/v1/community_items", type: :request do
@@ -72,10 +85,15 @@ RSpec.describe "api/v1/community_items", type: :request do
 
       response(201, "created") do
         let(:user) { create(:user, :admin, password: "password1234") }
-        let(:body) { { community_item: attributes_for(:community_item) } }
+        let(:tag) { create(:tag) }
+        let(:body) { { community_item: attributes_for(:community_item).merge(tag_ids: [ tag.id ]) } }
         before { login_as(user) }
         let(:Authorization) { @auth_headers["Authorization"] }
-        run_test!
+
+        run_test! do |response|
+          body = JSON.parse(response.body)
+          expect(body["community_item"]["tags"].map { |t| t["id"] }).to include(tag.id)
+        end
       end
 
       response(401, "unauthenticated") do

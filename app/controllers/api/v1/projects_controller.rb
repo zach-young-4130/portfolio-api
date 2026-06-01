@@ -5,7 +5,10 @@ module Api
       before_action :authorize_admin!, only: %i[create update destroy]
 
       def index
-        render_success(projects: ProjectBlueprint.render_as_hash(visible_scope_for(Project)))
+        scope = visible_scope_for(Project)
+        scope = scope.by_tag(params[:tag]) if params[:tag].present?
+        scope = scope.by_technology(params[:technology]) if params[:technology].present?
+        render_success(projects: ProjectBlueprint.render_as_hash(scope))
       end
 
       def show
@@ -47,7 +50,13 @@ module Api
       private
 
       def project_params
-        params.expect(project: %i[title tagline description tech_stack cover_image_url live_url repo_url featured position published project_start project_end])
+        params.expect(project: [
+          :title, :tagline, :description, :tech_stack,
+          :cover_image_url, :live_url, :repo_url,
+          :featured, :position, :published,
+          :project_start, :project_end,
+          { technology_ids: [], tag_ids: [] }
+        ])
       end
     end
   end

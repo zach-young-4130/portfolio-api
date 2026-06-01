@@ -284,3 +284,108 @@ seeded_ids = community_items.map do |attrs|
 end
 
 CommunityItem.where.not(id: seeded_ids).destroy_all
+
+# --- Technologies ------------------------------------------------------------
+
+technologies_data = [
+  { name: "Ruby on Rails", slug: "ruby-on-rails",  category: "framework" },
+  { name: "Angular",       slug: "angular",         category: "framework" },
+  { name: "Hotwire",       slug: "hotwire",         category: "framework" },
+  { name: "Ionic",         slug: "ionic",           category: "framework" },
+  { name: "TypeScript",    slug: "typescript",      category: "language"  },
+  { name: "JavaScript",    slug: "javascript",      category: "language"  },
+  { name: "PostgreSQL",    slug: "postgresql",      category: "platform"  },
+  { name: "Redis",         slug: "redis",           category: "platform"  },
+  { name: "MongoDB",       slug: "mongodb",         category: "platform"  },
+  { name: "Node.js",       slug: "nodejs",          category: "platform"  },
+  { name: "Sidekiq",       slug: "sidekiq",         category: "tool"      },
+  { name: "Stripe",        slug: "stripe",          category: "tool"      },
+  { name: "Authorize.net", slug: "authorize-net",   category: "tool"      },
+  { name: "Tailwind CSS",  slug: "tailwind-css",    category: "library"   },
+  { name: "Bootstrap",     slug: "bootstrap",       category: "library"   },
+]
+
+tech_by_slug = technologies_data.each_with_object({}) do |attrs, map|
+  tech = Technology.find_or_initialize_by(slug: attrs[:slug])
+  tech.update!(attrs)
+  map[attrs[:slug]] = tech
+end
+
+Technology.where.not(slug: tech_by_slug.keys).destroy_all
+
+# --- Tags --------------------------------------------------------------------
+
+tags_data = [
+  { name: "ag-tech",            slug: "ag-tech"            },
+  { name: "ai",                 slug: "ai"                 },
+  { name: "b2b",                slug: "b2b"                },
+  { name: "career-tech",        slug: "career-tech"        },
+  { name: "e-commerce",         slug: "e-commerce"         },
+  { name: "ed-tech",            slug: "ed-tech"            },
+  { name: "food-delivery",      slug: "food-delivery"      },
+  { name: "marketplace",        slug: "marketplace"        },
+  { name: "mobile",             slug: "mobile"             },
+  { name: "outdoor-recreation", slug: "outdoor-recreation" },
+  { name: "real-time",          slug: "real-time"          },
+]
+
+tag_by_slug = tags_data.each_with_object({}) do |attrs, map|
+  tag = Tag.find_or_initialize_by(slug: attrs[:slug])
+  tag.update!(attrs)
+  map[attrs[:slug]] = tag
+end
+
+Tag.where.not(slug: tag_by_slug.keys).destroy_all
+
+# --- Project associations ----------------------------------------------------
+
+project_tech_map = {
+  "Traction Studio AI"  => %w[ruby-on-rails hotwire postgresql redis sidekiq tailwind-css stripe],
+  "IHM Used Parts"      => %w[ruby-on-rails angular postgresql authorize-net],
+  "SR Harvesting"       => %w[angular ionic ruby-on-rails postgresql],
+  "Parent ProTech"      => %w[ruby-on-rails angular postgresql],
+  "PumpTrakr"           => %w[angular ruby-on-rails postgresql],
+  "Venku"               => %w[angular nodejs mongodb],
+  "CarGo Eats"          => %w[angular typescript],
+  "Careerquo / Upsquad" => %w[angular nodejs mongodb],
+  "CarGo Courier"       => %w[ruby-on-rails postgresql],
+  "Buchheit's"          => %w[angular],
+  "Hodlit"              => %w[angular typescript],
+}
+
+project_tag_map = {
+  "Traction Studio AI"  => %w[ai],
+  "IHM Used Parts"      => %w[e-commerce marketplace],
+  "SR Harvesting"       => %w[ag-tech mobile],
+  "Parent ProTech"      => %w[ed-tech],
+  "PumpTrakr"           => %w[ag-tech real-time],
+  "Venku"               => %w[outdoor-recreation marketplace],
+  "CarGo Eats"          => %w[food-delivery],
+  "Careerquo / Upsquad" => %w[career-tech],
+  "CarGo Courier"       => %w[b2b],
+  "Buchheit's"          => %w[e-commerce],
+  "Hodlit"              => %w[],
+}
+
+project_tech_map.each do |title, slugs|
+  project = Project.find_by!(title: title)
+  project.technologies = slugs.map { |s| tech_by_slug[s] }.compact
+end
+
+project_tag_map.each do |title, slugs|
+  project = Project.find_by!(title: title)
+  project.tags = slugs.map { |s| tag_by_slug[s] }.compact
+end
+
+# --- Community item associations ---------------------------------------------
+
+community_tag_map = [
+  { title: "Code Labs", role: "Instructor",       year: "2018 – 2019", tags: %w[ed-tech] },
+  { title: "Code Labs", role: "Instructor",       year: "2020 – 2021", tags: %w[ed-tech] },
+  { title: "Code Labs", role: "Lead Co-Instructor", year: "2022 – 2023", tags: %w[ed-tech] },
+]
+
+community_tag_map.each do |entry|
+  item = CommunityItem.find_by!(title: entry[:title], role: entry[:role], year: entry[:year])
+  item.tags = entry[:tags].map { |s| tag_by_slug[s] }.compact
+end

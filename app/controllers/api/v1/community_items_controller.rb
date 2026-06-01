@@ -39,7 +39,10 @@ module Api
       private
 
       def community_item_params
-        params.expect(community_item: %i[title description url role year tech_stack position published])
+        params.expect(community_item: [
+          :title, :description, :url, :role, :year, :tech_stack, :position, :published,
+          { tag_ids: [] }
+        ])
       end
     end
   end
