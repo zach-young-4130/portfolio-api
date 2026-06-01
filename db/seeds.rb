@@ -217,7 +217,7 @@ faq_items = [
   },
   {
     question: "What industries have you shipped production software in?",
-    answer: "Ag-tech, e-commerce, ed-tech, food delivery, outdoor recreation, career development, and AI. Each domain came with its own constraints and I had to learn it fast — that breadth has made me a quicker, more adaptable engineer.",
+    answer: "Ag-tech, e-commerce, ed-tech, fin-tech, food delivery, outdoor recreation, career development, and AI. Each domain came with its own constraints and I had to learn it fast — that breadth has made me a quicker, more adaptable engineer.",
     position: 4,
     published: true
   },
@@ -332,7 +332,8 @@ tags_data = [
   { name: "marketplace",        slug: "marketplace"        },
   { name: "mobile",             slug: "mobile"             },
   { name: "outdoor-recreation", slug: "outdoor-recreation" },
-  { name: "real-time",          slug: "real-time" }
+  { name: "real-time",          slug: "real-time" },
+  { name: "fin-tech",           slug: "fin-tech" }
 ]
 
 tag_by_slug = tags_data.each_with_object({}) do |attrs, map|
@@ -370,7 +371,7 @@ project_tag_map = {
   "Careerquo / Upsquad" => %w[career-tech],
   "CarGo Courier"       => %w[b2b],
   "Buchheit's"          => %w[e-commerce],
-  "Hodlit"              => %w[]
+  "Hodlit"              => %w[fin-tech]
 }
 
 project_tech_map.each do |title, slugs|
