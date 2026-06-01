@@ -110,7 +110,7 @@ projects = [
     cover_image_url: nil,
     live_url: "https://venku.com",
     repo_url: nil,
-    featured: true,
+    featured: false,
     position: 6,
     published: true,
     project_start: "2018-03-01",
