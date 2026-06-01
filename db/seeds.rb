@@ -52,7 +52,7 @@ projects = [
     description: "Built a decoupled e-commerce and inventory platform with a Rails 8 API backend and Angular frontend from the ground up. Managed a catalog of 500,000+ parts with sub-second search latency and a complex parts-filtering and quote workflow. Integrated Authorize.net for payment processing across the full purchase and checkout flow.",
     tech_stack: "Rails 8, Angular, PostgreSQL, Authorize.net, REST API",
     cover_image_url: nil,
-    live_url: "https://ihumusedparts.com",
+    live_url: "https://ihmusedparts.com",
     repo_url: nil,
     featured: true,
     position: 2,
@@ -119,7 +119,7 @@ projects = [
   {
     title: "CarGo Eats",
     tagline: "Food ordering and delivery platform within the CarGo ecosystem.",
-    description: "Built the web platform frontend for a food ordering and delivery service within the CarGo ecosystem. Implemented Angular SSR for improved load performance and SEO across the ordering experience. Integrated with multiple microservices to handle menu management, order routing, and delivery tracking.",
+    description: "Built the web application for CarGo Eats, a food ordering and delivery service within the CarGo ecosystem. Implemented Angular SSR for improved load performance and SEO across the ordering experience. Integrated with multiple microservices to handle menu management, order routing, and delivery tracking.",
     tech_stack: "Angular SSR, Microservices, TypeScript, REST API",
     cover_image_url: nil,
     live_url: nil,
@@ -302,7 +302,7 @@ technologies_data = [
   { name: "Stripe",        slug: "stripe",          category: "tool"      },
   { name: "Authorize.net", slug: "authorize-net",   category: "tool"      },
   { name: "Tailwind CSS",  slug: "tailwind-css",    category: "library"   },
-  { name: "Bootstrap",     slug: "bootstrap",       category: "library"   },
+  { name: "Bootstrap",     slug: "bootstrap",       category: "library" }
 ]
 
 tech_by_slug = technologies_data.each_with_object({}) do |attrs, map|
@@ -326,7 +326,7 @@ tags_data = [
   { name: "marketplace",        slug: "marketplace"        },
   { name: "mobile",             slug: "mobile"             },
   { name: "outdoor-recreation", slug: "outdoor-recreation" },
-  { name: "real-time",          slug: "real-time"          },
+  { name: "real-time",          slug: "real-time" }
 ]
 
 tag_by_slug = tags_data.each_with_object({}) do |attrs, map|
@@ -350,7 +350,7 @@ project_tech_map = {
   "Careerquo / Upsquad" => %w[angular nodejs mongodb],
   "CarGo Courier"       => %w[ruby-on-rails postgresql],
   "Buchheit's"          => %w[angular],
-  "Hodlit"              => %w[angular typescript],
+  "Hodlit"              => %w[angular typescript bootstrap]
 }
 
 project_tag_map = {
@@ -364,7 +364,7 @@ project_tag_map = {
   "Careerquo / Upsquad" => %w[career-tech],
   "CarGo Courier"       => %w[b2b],
   "Buchheit's"          => %w[e-commerce],
-  "Hodlit"              => %w[],
+  "Hodlit"              => %w[]
 }
 
 project_tech_map.each do |title, slugs|
@@ -382,7 +382,7 @@ end
 community_tag_map = [
   { title: "Code Labs", role: "Instructor",       year: "2018 – 2019", tags: %w[ed-tech] },
   { title: "Code Labs", role: "Instructor",       year: "2020 – 2021", tags: %w[ed-tech] },
-  { title: "Code Labs", role: "Lead Co-Instructor", year: "2022 – 2023", tags: %w[ed-tech] },
+  { title: "Code Labs", role: "Lead Co-Instructor", year: "2022 – 2023", tags: %w[ed-tech] }
 ]
 
 community_tag_map.each do |entry|
