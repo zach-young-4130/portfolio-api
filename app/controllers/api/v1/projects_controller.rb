@@ -5,7 +5,7 @@ module Api
       before_action :authorize_admin!, only: %i[create update destroy]
 
       def index
-        scope = visible_scope_for(Project)
+        scope = visible_scope_for(Project).includes(:technologies, :tags)
         scope = scope.by_tag(params[:tag]) if params[:tag].present?
         scope = scope.by_technology(params[:technology]) if params[:technology].present?
         render_success(projects: ProjectBlueprint.render_as_hash(scope))
@@ -13,7 +13,7 @@ module Api
 
       def show
         scope = current_user ? Project : Project.published
-        project = scope.find_by(id: params[:id])
+        project = scope.includes(:technologies, :tags).find_by(id: params[:id])
         return render_error("Project not found", status: :not_found) unless project
 
         render_success(project: ProjectBlueprint.render_as_hash(project))
@@ -22,7 +22,7 @@ module Api
       def create
         project = Project.new(project_params)
         if project.save
-          render_success(project: ProjectBlueprint.render_as_hash(project), status: :created)
+          render_success(project: ProjectBlueprint.render_as_hash(load_project(project.id)), status: :created)
         else
           render_error(project)
         end
@@ -33,7 +33,7 @@ module Api
         return render_error("Project not found", status: :not_found) unless project
 
         if project.update(project_params)
-          render_success(project: ProjectBlueprint.render_as_hash(project))
+          render_success(project: ProjectBlueprint.render_as_hash(load_project(project.id)))
         else
           render_error(project)
         end
@@ -48,6 +48,10 @@ module Api
       end
 
       private
+
+      def load_project(id)
+        Project.includes(:technologies, :tags).find(id)
+      end
 
       def project_params
         params.expect(project: [

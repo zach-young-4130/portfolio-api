@@ -5,13 +5,13 @@ module Api
       before_action :authorize_admin!, only: %i[create update destroy]
 
       def index
-        render_success(community_items: CommunityItemBlueprint.render_as_hash(visible_scope_for(CommunityItem)))
+        render_success(community_items: CommunityItemBlueprint.render_as_hash(visible_scope_for(CommunityItem).includes(:tags)))
       end
 
       def create
         item = CommunityItem.new(community_item_params)
         if item.save
-          render_success(community_item: CommunityItemBlueprint.render_as_hash(item), status: :created)
+          render_success(community_item: CommunityItemBlueprint.render_as_hash(load_item(item.id)), status: :created)
         else
           render_error(item)
         end
@@ -22,7 +22,7 @@ module Api
         return render_error("Community item not found", status: :not_found) unless item
 
         if item.update(community_item_params)
-          render_success(community_item: CommunityItemBlueprint.render_as_hash(item))
+          render_success(community_item: CommunityItemBlueprint.render_as_hash(load_item(item.id)))
         else
           render_error(item)
         end
@@ -37,6 +37,10 @@ module Api
       end
 
       private
+
+      def load_item(id)
+        CommunityItem.includes(:tags).find(id)
+      end
 
       def community_item_params
         params.expect(community_item: [
