@@ -247,9 +247,15 @@ faq_items = [
   }
 ]
 
-faq_items.each do |attrs|
-  FaqItem.find_or_initialize_by(question: attrs[:question]).update!(attrs)
+# Upsert by question, then prune any FAQ not in the current list so renamed or
+# removed questions don't linger as orphans on re-seed.
+seeded_faq_ids = faq_items.map do |attrs|
+  item = FaqItem.find_or_initialize_by(question: attrs[:question])
+  item.update!(attrs)
+  item.id
 end
+
+FaqItem.where.not(id: seeded_faq_ids).destroy_all
 
 community_items = [
   {
