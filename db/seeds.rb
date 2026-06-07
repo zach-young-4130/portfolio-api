@@ -96,7 +96,7 @@ projects = [
     cover_image_url: "/screenshots/pumptrakr.jpg",
     live_url: "https://pumptrakr.com",
     repo_url: nil,
-    featured: false,
+    featured: true,
     position: 5,
     published: true,
     project_start: "2018-01-01",
