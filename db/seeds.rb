@@ -204,8 +204,8 @@ faq_items = [
     published: true
   },
   {
-    question: "Are you available for freelance work?",
-    answer: "No. Who has time for that with a full-time job? That said, I'm open to the right contract work — if you've got something in mind, get in touch through the <a href=\"/contact\">contact form</a>.",
+    question: "Are you available for work?",
+    answer: "Yes — and actively looking for my next role. Full-time or contract, remote, I'm open to the right opportunity. If you've got a role or project in mind, reach out through the <a href=\"/contact\">contact form</a> and I'll get back to you quickly.",
     position: 2,
     published: true
   },
