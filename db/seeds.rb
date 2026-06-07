@@ -90,8 +90,8 @@ projects = [
   },
   {
     title: "PumpTrakr",
-    tagline: "Ag-tech dashboard for remote irrigation system monitoring.",
-    description: "Built the ag-tech dashboard from v1 through v2 for remote irrigation system monitoring. Optimized real-time sensor data visualization for field operators managing large irrigation networks. Engineered admin and superadmin capabilities within the API, enabling tiered access control for platform operators.",
+    tagline: "Remotely control and monitor farm irrigation — pumps, pivots, water, and fuel.",
+    description: "A farmer-owned platform for running an entire irrigation operation from a single mobile app — switching flood pumps and center pivots on or off, setting pivot direction and run times, and tracking water depth, fuel levels, and maintenance alerts in real time. I built the operator-facing dashboard across two major versions (v1 → v2), engineering the real-time sensor visualization field teams rely on to manage pumps and pivots spread across large properties. On the Rails API, I implemented tiered admin and superadmin access control — giving platform operators scoped management of devices, accounts, and farm data.",
     tech_stack: "Angular, Rails API, Real-time Data, Data Visualization",
     cover_image_url: "/screenshots/pumptrakr.jpg",
     live_url: "https://pumptrakr.com",
