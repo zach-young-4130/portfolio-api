@@ -35,7 +35,7 @@ projects = [
   {
     title: "Traction Studio AI",
     tagline: "ESO and Admin dashboards powered by Rails 8 + Hotwire.",
-    description: "Architected ESO and Admin dashboards using Rails 8 + Hotwire for real-time UI without a JS framework. Engineered Stripe payment integration covering retail and scholarship transaction flows. Implemented a Light/Dark mode system with Tailwind CSS custom properties.",
+    description: "An AI-powered system for startup founders that pairs a guided methodology, AI agents, and expert services to take a venture from idea to investor-ready — “Not Just Software. A Complete System.” Architected the founder-facing (ESO) and admin dashboards in Rails 8 + Hotwire for real-time UI without a separate JS framework. Engineered Stripe payment integration across retail and scholarship transaction flows, and implemented a light/dark theming system with Tailwind CSS custom properties.",
     tech_stack: "Rails 8, Hotwire, PostgreSQL, Redis, Sidekiq, Tailwind CSS, Stripe",
     cover_image_url: "/screenshots/tractionstudio.jpg",
     live_url: "https://app.tractionstudio.ai/users/sign_up/founder",
@@ -49,7 +49,7 @@ projects = [
   {
     title: "IHM Used Parts",
     tagline: "E-commerce platform for 500,000+ heavy equipment parts.",
-    description: "Built a decoupled e-commerce and inventory platform with a Rails 8 API backend and Angular frontend from the ground up. Managed a catalog of 500,000+ parts with sub-second search latency and a complex parts-filtering and quote workflow. Integrated Authorize.net for payment processing across the full purchase and checkout flow.",
+    description: "An e-commerce and inventory platform for high-quality, low-cost heavy-equipment parts. Built the decoupled system from the ground up with a Rails 8 API backend and an Angular frontend, serving a catalog of 500,000+ parts with sub-second search and a complex parts-filtering and quote workflow. Integrated Authorize.net for payment processing across the full purchase and checkout flow.",
     tech_stack: "Rails 8, Angular, PostgreSQL, Authorize.net, REST API",
     cover_image_url: "/screenshots/ihmusedparts.jpg",
     live_url: "https://ihmusedparts.com",
@@ -63,7 +63,7 @@ projects = [
   {
     title: "SR Harvesting",
     tagline: "Seed delivery tracking from harvester to semi truck trailer.",
-    description: "Built a seed delivery tracking application for farmers to manage loads moving from harvester to cart to semi truck trailer. Designed a ticketing system that generated unique receipt numbers capturing farm, field, and load data at each transfer point. Enabled end-to-end traceability of seed and product delivery from the field to the scale or silo.",
+    description: "A seed-delivery tracking application that let farmers manage loads moving from harvester to cart to semi-truck trailer. Designed a ticketing system that generated unique receipt numbers capturing farm, field, and load data at each transfer point, enabling end-to-end traceability of seed and product delivery from the field to the scale or silo.",
     tech_stack: "Angular 18, Ionic 8, Rails API, PostgreSQL",
     cover_image_url: "/screenshots/srharvestingapp.jpg",
     live_url: "https://harvesting.supremerice.com",
@@ -77,7 +77,7 @@ projects = [
   {
     title: "Parent ProTech",
     tagline: "Curriculum and video delivery platform for school districts.",
-    description: "Re-engineered the core platform to support a growing curriculum ecosystem used by school districts. Built and managed the video delivery pipeline for on-demand educational content. Designed integrations with school district systems to automate enrollment and reporting workflows.",
+    description: "A digital-citizenship and online-safety education platform — “Empowering Families. Protecting Futures.” — delivering K-12 curriculum and video programming to families, schools, and districts. Re-engineered the core platform to support a growing curriculum ecosystem, built and maintained the video-delivery pipeline for on-demand educational content, and designed integrations with school-district systems to automate enrollment and reporting workflows.",
     tech_stack: "Rails API, Angular SSR, Video Streaming, PostgreSQL",
     cover_image_url: "/screenshots/parentprotech.jpg",
     live_url: "https://www.parentprotech.com",
@@ -91,7 +91,7 @@ projects = [
   {
     title: "PumpTrakr",
     tagline: "Remotely control and monitor farm irrigation — pumps, pivots, water, and fuel.",
-    description: "A farmer-owned platform for running an entire irrigation operation from a single mobile app — switching flood pumps and center pivots on or off, setting pivot direction and run times, and tracking water depth, fuel levels, and maintenance alerts in real time. I built the operator-facing dashboard across two major versions (v1 → v2), engineering the real-time sensor visualization field teams rely on to manage pumps and pivots spread across large properties. On the Rails API, I implemented tiered admin and superadmin access control — giving platform operators scoped management of devices, accounts, and farm data.",
+    description: "A farmer-owned platform for running an entire irrigation operation from a single mobile app — switching flood pumps and center pivots on or off, setting pivot direction and run times, and tracking water depth, fuel levels, and maintenance alerts in real time. Built the operator-facing dashboard across two major versions (v1 → v2), engineering the real-time sensor visualization field teams rely on to manage pumps and pivots spread across large properties. Implemented tiered admin and superadmin access control on the Rails API, giving platform operators scoped management of devices, accounts, and farm data.",
     tech_stack: "Angular, Rails API, Real-time Data, Data Visualization",
     cover_image_url: "/screenshots/pumptrakr.jpg",
     live_url: "https://pumptrakr.com",
@@ -105,7 +105,7 @@ projects = [
   {
     title: "Venku",
     tagline: "v2 modernization of an outdoor recreation marketplace.",
-    description: "Led full v2 modernization of an outdoor recreation marketplace for guided hunts and fishing, migrating Angular v4 to v12. Upgraded the backend API from .NET Core 2.1 to 3.1 alongside the frontend migration. Engineered a Hapi.js search microservice backed by MongoDB. Scaled the platform to support 10,000+ active users and managed a database of 1,000+ verified outfitters.",
+    description: "An outdoor-recreation marketplace for booking guided hunts and fishing trips, connecting 10,000+ hunters with 1,000+ verified outfitters. Led the full v2 modernization — migrating the frontend from Angular 4 to 12 and the backend API from .NET Core 2.1 to 3.1 — and engineered a Hapi.js search microservice backed by MongoDB to power discovery across species, locations, and price ranges.",
     tech_stack: "Angular 12, Node.js, MongoDB, Microservices",
     cover_image_url: "/screenshots/venku.jpg",
     live_url: "https://venku.com",
@@ -119,7 +119,7 @@ projects = [
   {
     title: "CarGo Eats",
     tagline: "Food ordering and delivery platform within the CarGo ecosystem.",
-    description: "Built the web application for CarGo Eats, a food ordering and delivery service within the CarGo ecosystem. Implemented Angular SSR for improved load performance and SEO across the ordering experience. Integrated with multiple microservices to handle menu management, order routing, and delivery tracking.",
+    description: "The web application for CarGo Eats, the food-ordering and delivery service within the CarGo ride-sharing ecosystem. Built the ordering experience with Angular SSR for faster loads and stronger SEO, and integrated multiple microservices to handle menu management, order routing, and live delivery tracking.",
     tech_stack: "Angular SSR, Microservices, TypeScript, REST API",
     cover_image_url: nil,
     live_url: nil,
@@ -133,7 +133,7 @@ projects = [
   {
     title: "Careerquo / Upsquad",
     tagline: "Career development platform, later rebranded as Upsquad.",
-    description: "Developed the full application for a career development platform, later rebranded as Upsquad. Built an Angular frontend paired with a Node.js backend to deliver a seamless user experience. Designed data models and API layer backed by MongoDB for flexible career profile management.",
+    description: "A workforce-engagement platform for cohort-based training that connects job seekers, employers, and training providers — “one platform for cohort-based trainings with built-in engagement.” Developed the full application (later rebranded from Careerquo to Upsquad), building an Angular frontend on a Node.js backend and designing the MongoDB data models and API layer behind flexible career profiles and program management.",
     tech_stack: "Angular, Node.js, MongoDB, REST API",
     cover_image_url: "/screenshots/upsquad.jpg",
     live_url: "https://upsquad.co",
@@ -147,7 +147,7 @@ projects = [
   {
     title: "CarGo Courier",
     tagline: "B2B delivery platform coordinating pickup and delivery via CarGo.",
-    description: "Built a B2B delivery platform enabling businesses to request and manage goods pickup and delivery via CarGo. Developed a full-stack Rails application coordinating with multiple microservices to fulfill delivery workflows end-to-end. Designed the service integration layer for real-time dispatch communication across the courier network.",
+    description: "A B2B delivery platform that let businesses request and manage goods pickup and delivery across the CarGo courier network. Built the full-stack Rails application, coordinating multiple microservices to fulfill delivery workflows end-to-end, and designed the service-integration layer for real-time dispatch communication.",
     tech_stack: "Rails, Microservices, PostgreSQL, REST API",
     cover_image_url: nil,
     live_url: nil,
@@ -161,7 +161,7 @@ projects = [
   {
     title: "Buchheit's",
     tagline: "Maintenance and feature work on the Angular frontend for a retail chain.",
-    description: "Served in a maintenance role on the Angular frontend, keeping the e-commerce experience stable and delivering incremental improvements. The frontend communicated with a microservices backend to handle product catalog, inventory, and checkout flows.",
+    description: "The e-commerce storefront for Buchheit's, a farm, ranch, home, and pet supply retailer operating since 1934 across 19 Midwest locations. Maintained and incrementally improved the Angular frontend — keeping the shopping experience stable while it communicated with a microservices backend handling the product catalog, multi-store inventory, and checkout.",
     tech_stack: "Angular, Microservices, REST API",
     cover_image_url: "/screenshots/buchheits.jpg",
     live_url: "https://www.buchheits.com",
@@ -175,7 +175,7 @@ projects = [
   {
     title: "Hodlit",
     tagline: "Customer service and admin/super-admin dashboard for a consumer platform.",
-    description: "Led frontend engineering for the customer service and admin/super-admin dashboard in Angular, delivered through Codefi Works. Designed tiered admin interfaces enabling internal teams to manage users, resolve support requests, and perform elevated platform operations.",
+    description: "A mobile-first fintech app that makes buying and accumulating crypto effortless — “Your Accumulation Headquarters,” with features like spare-change Roundup and recurring Autopilot buys. Led frontend engineering for the customer-service and admin/super-admin dashboard in Angular (delivered through Codefi Works), designing tiered admin interfaces that let internal teams manage users, resolve support requests, and perform elevated platform operations.",
     tech_stack: "Angular, REST API, TypeScript",
     cover_image_url: "/screenshots/hodlit.jpg",
     live_url: "https://hodlit.com",
