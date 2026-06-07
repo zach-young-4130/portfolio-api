@@ -37,8 +37,8 @@ projects = [
     tagline: "ESO and Admin dashboards powered by Rails 8 + Hotwire.",
     description: "Architected ESO and Admin dashboards using Rails 8 + Hotwire for real-time UI without a JS framework. Engineered Stripe payment integration covering retail and scholarship transaction flows. Implemented a Light/Dark mode system with Tailwind CSS custom properties.",
     tech_stack: "Rails 8, Hotwire, PostgreSQL, Redis, Sidekiq, Tailwind CSS, Stripe",
-    cover_image_url: nil,
-    live_url: nil,
+    cover_image_url: "/screenshots/tractionstudio.jpg",
+    live_url: "https://app.tractionstudio.ai/users/sign_up/founder",
     repo_url: nil,
     featured: true,
     position: 1,
@@ -205,7 +205,7 @@ faq_items = [
   },
   {
     question: "Are you available for freelance work?",
-    answer: "No, who has the time for that with a full-time job? Legitimate question. I focus on what I am working on, who I'm working for, where I'm working at, and the output of the work I produce.",
+    answer: "No. Who has time for that with a full-time job? That said, I'm open to the right contract work — if you've got something in mind, get in touch through the <a href=\"/contact\">contact form</a>.",
     position: 2,
     published: true
   },
