@@ -49,7 +49,7 @@ RSpec.describe "api/v1/contact_messages", type: :request do
     get("List unread contact messages") do
       tags "Contact Messages"
       produces "application/json"
-      security [{ bearerAuth: [] }]
+      security [ { bearerAuth: [] } ]
       parameter name: :Authorization, in: :header, type: :string, required: false
 
       response(200, "ok") do
@@ -80,7 +80,7 @@ RSpec.describe "api/v1/contact_messages", type: :request do
       tags "Contact Messages"
       consumes "application/json"
       produces "application/json"
-      security [{ bearerAuth: [] }]
+      security [ { bearerAuth: [] } ]
       parameter name: :Authorization, in: :header, type: :string, required: false
 
       response(200, "marked read") do

@@ -39,7 +39,6 @@ module Api
       def show
         render_success(user: UserBlueprint.render_as_hash(current_user))
       end
-
     end
   end
 end

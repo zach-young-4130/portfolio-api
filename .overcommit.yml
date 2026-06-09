@@ -1,0 +1,19 @@
+# Use the repo Gemfile so hooks run with pinned gem versions.
+gemfile: Gemfile
+
+PreCommit:
+  RuboCop:
+    enabled: true
+    required: true
+    required_executable: bundle
+    command: ["bundle", "exec", "rubocop"]
+    description: "Run RuboCop before committing"
+
+PrePush:
+  ALL:
+    enabled: false
+
+  FullProjectRuboCop:
+    enabled: true
+    required: true
+    description: "Run full-project RuboCop before pushing"

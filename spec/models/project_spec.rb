@@ -17,14 +17,14 @@ RSpec.describe Project, type: :model do
       a = create(:project, published: true, position: 2)
       b = create(:project, published: true, position: 1)
       _draft = create(:project, published: false)
-      expect(Project.published).to eq([b, a])
+      expect(Project.published).to eq([ b, a ])
     end
 
     it ".featured returns only published & featured" do
       featured = create(:project, published: true, featured: true)
       _plain = create(:project, published: true, featured: false)
       _draft_featured = create(:project, published: false, featured: true)
-      expect(Project.featured).to eq([featured])
+      expect(Project.featured).to eq([ featured ])
     end
   end
 

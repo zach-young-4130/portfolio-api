@@ -73,7 +73,7 @@ RSpec.describe "api/v1/sessions", type: :request do
 
     delete("Logout (client discards token)") do
       tags "Sessions"
-      security [{ bearerAuth: [] }]
+      security [ { bearerAuth: [] } ]
       parameter name: :Authorization, in: :header, type: :string, required: false
 
       response(204, "logged out") do
@@ -91,7 +91,7 @@ RSpec.describe "api/v1/sessions", type: :request do
     get("Current session") do
       tags "Sessions"
       produces "application/json"
-      security [{ bearerAuth: [] }]
+      security [ { bearerAuth: [] } ]
       parameter name: :Authorization, in: :header, type: :string, required: false
 
       response(200, "authenticated") do
@@ -112,5 +112,4 @@ RSpec.describe "api/v1/sessions", type: :request do
       end
     end
   end
-
 end

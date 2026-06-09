@@ -62,7 +62,7 @@ RSpec.describe "api/v1/page_views", type: :request do
     get("Get visitor stats (admin only)") do
       tags "Analytics"
       produces "application/json"
-      security [{ bearerAuth: [] }]
+      security [ { bearerAuth: [] } ]
       parameter name: :Authorization, in: :header, type: :string, required: false
 
       response(200, "ok") do

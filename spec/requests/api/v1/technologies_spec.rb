@@ -37,7 +37,7 @@ RSpec.describe "api/v1/technologies", type: :request do
       tags "Technologies"
       consumes "application/json"
       produces "application/json"
-      security [{ bearerAuth: [] }]
+      security [ { bearerAuth: [] } ]
       parameter name: :Authorization, in: :header, type: :string, required: false
       parameter name: :technology, in: :body, schema: {
         type: :object,
@@ -76,7 +76,7 @@ RSpec.describe "api/v1/technologies", type: :request do
       tags "Technologies"
       consumes "application/json"
       produces "application/json"
-      security [{ bearerAuth: [] }]
+      security [ { bearerAuth: [] } ]
       parameter name: :Authorization, in: :header, type: :string, required: false
       parameter name: :body, in: :body, schema: {
         type: :object,
@@ -113,7 +113,7 @@ RSpec.describe "api/v1/technologies", type: :request do
 
     delete("Destroy technology") do
       tags "Technologies"
-      security [{ bearerAuth: [] }]
+      security [ { bearerAuth: [] } ]
       parameter name: :Authorization, in: :header, type: :string, required: false
 
       response(204, "destroyed") do

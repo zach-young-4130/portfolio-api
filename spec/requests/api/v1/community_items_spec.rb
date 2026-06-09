@@ -75,7 +75,7 @@ RSpec.describe "api/v1/community_items", type: :request do
       tags "Community Items"
       consumes "application/json"
       produces "application/json"
-      security [{ bearerAuth: [] }]
+      security [ { bearerAuth: [] } ]
       parameter name: :Authorization, in: :header, type: :string, required: false
       parameter name: :body, in: :body, schema: {
         type: :object,
@@ -118,7 +118,7 @@ RSpec.describe "api/v1/community_items", type: :request do
       tags "Community Items"
       consumes "application/json"
       produces "application/json"
-      security [{ bearerAuth: [] }]
+      security [ { bearerAuth: [] } ]
       parameter name: :Authorization, in: :header, type: :string, required: false
       parameter name: :body, in: :body, schema: {
         type: :object,
@@ -156,7 +156,7 @@ RSpec.describe "api/v1/community_items", type: :request do
 
     delete("Destroy community item") do
       tags "Community Items"
-      security [{ bearerAuth: [] }]
+      security [ { bearerAuth: [] } ]
       parameter name: :Authorization, in: :header, type: :string, required: false
 
       response(204, "destroyed") do

@@ -92,7 +92,7 @@ RSpec.describe "api/v1/projects", type: :request do
       tags "Projects"
       consumes "application/json"
       produces "application/json"
-      security [{ bearerAuth: [] }]
+      security [ { bearerAuth: [] } ]
       parameter name: :Authorization, in: :header, type: :string, required: false
       parameter name: :project, in: :body, schema: {
         type: :object,
@@ -166,7 +166,7 @@ RSpec.describe "api/v1/projects", type: :request do
       tags "Projects"
       consumes "application/json"
       produces "application/json"
-      security [{ bearerAuth: [] }]
+      security [ { bearerAuth: [] } ]
       parameter name: :Authorization, in: :header, type: :string, required: false
       parameter name: :body, in: :body, schema: {
         type: :object,
@@ -204,7 +204,7 @@ RSpec.describe "api/v1/projects", type: :request do
 
     delete("Destroy project") do
       tags "Projects"
-      security [{ bearerAuth: [] }]
+      security [ { bearerAuth: [] } ]
       parameter name: :Authorization, in: :header, type: :string, required: false
 
       response(204, "destroyed") do

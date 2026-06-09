@@ -59,7 +59,7 @@ RSpec.describe "api/v1/faq_items", type: :request do
       tags "FAQ Items"
       consumes "application/json"
       produces "application/json"
-      security [{ bearerAuth: [] }]
+      security [ { bearerAuth: [] } ]
       parameter name: :Authorization, in: :header, type: :string, required: false
       parameter name: :body, in: :body, schema: {
         type: :object,
@@ -97,7 +97,7 @@ RSpec.describe "api/v1/faq_items", type: :request do
       tags "FAQ Items"
       consumes "application/json"
       produces "application/json"
-      security [{ bearerAuth: [] }]
+      security [ { bearerAuth: [] } ]
       parameter name: :Authorization, in: :header, type: :string, required: false
       parameter name: :body, in: :body, schema: {
         type: :object,
@@ -135,7 +135,7 @@ RSpec.describe "api/v1/faq_items", type: :request do
 
     delete("Destroy FAQ item") do
       tags "FAQ Items"
-      security [{ bearerAuth: [] }]
+      security [ { bearerAuth: [] } ]
       parameter name: :Authorization, in: :header, type: :string, required: false
 
       response(204, "destroyed") do

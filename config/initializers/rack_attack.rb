@@ -16,7 +16,7 @@ class Rack::Attack
     [
       429,
       { "Content-Type" => "application/json" },
-      [{ errors: ["Too many login attempts. Try again later."] }.to_json]
+      [ { errors: [ "Too many login attempts. Try again later." ] }.to_json ]
     ]
   end
 end

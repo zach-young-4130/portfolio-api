@@ -36,7 +36,7 @@ RSpec.describe "api/v1/tags", type: :request do
       tags "Tags"
       consumes "application/json"
       produces "application/json"
-      security [{ bearerAuth: [] }]
+      security [ { bearerAuth: [] } ]
       parameter name: :Authorization, in: :header, type: :string, required: false
       parameter name: :tag, in: :body, schema: {
         type: :object,
@@ -75,7 +75,7 @@ RSpec.describe "api/v1/tags", type: :request do
       tags "Tags"
       consumes "application/json"
       produces "application/json"
-      security [{ bearerAuth: [] }]
+      security [ { bearerAuth: [] } ]
       parameter name: :Authorization, in: :header, type: :string, required: false
       parameter name: :body, in: :body, schema: {
         type: :object,
@@ -112,7 +112,7 @@ RSpec.describe "api/v1/tags", type: :request do
 
     delete("Destroy tag") do
       tags "Tags"
-      security [{ bearerAuth: [] }]
+      security [ { bearerAuth: [] } ]
       parameter name: :Authorization, in: :header, type: :string, required: false
 
       response(204, "destroyed") do

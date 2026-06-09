@@ -28,7 +28,7 @@ RSpec.describe ContactMessage, type: :model do
       old = create(:contact_message, created_at: 2.days.ago)
       new_msg = create(:contact_message, created_at: 1.hour.ago)
       _read_msg = create(:contact_message, read_at: 1.minute.ago)
-      expect(ContactMessage.unread).to eq([new_msg, old])
+      expect(ContactMessage.unread).to eq([ new_msg, old ])
     end
   end
 end

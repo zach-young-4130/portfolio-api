@@ -15,7 +15,7 @@ RSpec.describe FaqItem, type: :model do
       a = create(:faq_item, position: 2)
       b = create(:faq_item, position: 1)
       _draft = create(:faq_item, published: false)
-      expect(FaqItem.published).to eq([b, a])
+      expect(FaqItem.published).to eq([ b, a ])
     end
   end
 end

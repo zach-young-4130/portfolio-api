@@ -40,5 +40,4 @@ class User < ApplicationRecord
     return if failed_attempts.zero? && locked_until.nil?
     update_columns(failed_attempts: 0, locked_until: nil)
   end
-
 end

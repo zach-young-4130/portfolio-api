@@ -15,7 +15,7 @@ RSpec.describe CommunityItem, type: :model do
       a = create(:community_item, position: 2)
       b = create(:community_item, position: 1)
       _draft = create(:community_item, published: false)
-      expect(CommunityItem.published).to eq([b, a])
+      expect(CommunityItem.published).to eq([ b, a ])
     end
   end
 end
