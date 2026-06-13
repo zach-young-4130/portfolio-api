@@ -425,6 +425,12 @@ technologies_data = [
   { name: "Git",           slug: "git",             category: "tool"      },
   { name: "RSpec",         slug: "rspec",           category: "tool"      },
   { name: "REST APIs",     slug: "rest-apis",       category: "tool"      },
+  { name: "RuboCop",       slug: "rubocop",         category: "tool"      },
+  { name: "Brakeman",      slug: "brakeman",        category: "tool"      },
+  { name: "Capybara",      slug: "capybara",        category: "tool"      },
+  { name: "FactoryBot",    slug: "factory-bot",     category: "tool"      },
+  { name: "Cypress",       slug: "cypress",         category: "tool"      },
+  { name: "Jest",          slug: "jest",            category: "tool"      },
   # Libraries
   { name: "Tailwind CSS",  slug: "tailwind-css",    category: "library"   },
   { name: "Bootstrap",     slug: "bootstrap",       category: "library"   },
@@ -435,11 +441,7 @@ technologies_data = [
   { name: "Pagy",          slug: "pagy",            category: "library"   },
   { name: "Kaminari",      slug: "kaminari",        category: "library"   },
   { name: "Ransack",       slug: "ransack",         category: "library"   },
-  { name: "FactoryBot",    slug: "factory-bot",     category: "library"   },
   { name: "Faker",         slug: "faker",           category: "library"   },
-  { name: "Capybara",      slug: "capybara",        category: "library"   },
-  { name: "RuboCop",       slug: "rubocop",         category: "library"   },
-  { name: "Brakeman",      slug: "brakeman",        category: "library"   },
   { name: "Bullet",        slug: "bullet",          category: "library"   },
   { name: "Solid Queue",   slug: "solid-queue",     category: "library"   },
   { name: "Active Admin",  slug: "active-admin",    category: "library"   },
@@ -459,9 +461,7 @@ technologies_data = [
   { name: "ngx-charts",    slug: "ngx-charts",      category: "library"   },
   { name: "AG Grid",       slug: "ag-grid",         category: "library"   },
   { name: "Apollo Angular", slug: "apollo-angular", category: "library"   },
-  { name: "ngx-formly",    slug: "ngx-formly",      category: "library"   },
-  { name: "Cypress",       slug: "cypress",         category: "library"   },
-  { name: "Jest",          slug: "jest",            category: "library"   }
+  { name: "ngx-formly",    slug: "ngx-formly",      category: "library"   }
 ]
 
 tech_by_slug = technologies_data.each_with_object({}) do |attrs, map|
