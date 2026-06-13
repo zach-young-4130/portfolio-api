@@ -173,7 +173,7 @@ projects = [
       Built an Angular frontend on a Node.js backend.
       Designed the MongoDB data models and API layer behind flexible career profiles and program management.
     HIGHLIGHTS
-    tech_stack: "Angular, Node.js, MongoDB, REST API",
+    tech_stack: "Angular, TypeScript, Bootstrap 5, Angular Material, Node.js, Express, MongoDB",
     cover_image_url: "/screenshots/upsquad.jpg",
     live_url: "https://upsquad.co",
     repo_url: nil,
@@ -407,6 +407,7 @@ technologies_data = [
   { name: "React Native",  slug: "react-native",    category: "framework" },
   { name: ".NET Core",     slug: "dotnet-core",     category: "framework" },
   { name: "Hapi.js",       slug: "hapi-js",         category: "framework" },
+  { name: "Express",       slug: "express",         category: "framework" },
   # Platforms
   { name: "PostgreSQL",    slug: "postgresql",      category: "platform"  },
   { name: "Redis",         slug: "redis",           category: "platform"  },
@@ -414,6 +415,9 @@ technologies_data = [
   { name: "Node.js",       slug: "nodejs",          category: "platform"  },
   { name: "Vercel",        slug: "vercel",          category: "platform"  },
   { name: "Fly.io",        slug: "fly-io",          category: "platform"  },
+  { name: "AWS",           slug: "aws",             category: "platform"  },
+  { name: "Hatchbox",      slug: "hatchbox",        category: "platform"  },
+  { name: "DigitalOcean",  slug: "digital-ocean",   category: "platform"  },
   # Tools
   { name: "Sidekiq",       slug: "sidekiq",         category: "tool"      },
   { name: "Stripe",        slug: "stripe",          category: "tool"      },
@@ -497,19 +501,19 @@ Tag.where.not(slug: tag_by_slug.keys).destroy_all
 # --- Project associations ----------------------------------------------------
 
 project_tech_map = {
-  "Traction Studio AI"  => %w[ruby-on-rails ruby hotwire turbo stimulus postgresql redis sidekiq tailwind-css stripe],
-  "IHM Used Parts"      => %w[ruby-on-rails ruby angular typescript postgresql rest-apis authorize-net],
-  "SR Harvesting"       => %w[angular typescript ionic ruby-on-rails ruby postgresql rest-apis],
-  "Parent ProTech"      => %w[ruby-on-rails ruby angular typescript postgresql rest-apis],
-  "PumpTrakr"           => %w[angular typescript ruby-on-rails ruby postgresql rest-apis],
-  "Venku"               => %w[angular typescript dotnet-core hapi-js nodejs mongodb],
-  "CarGo Eats"          => %w[angular typescript rest-apis],
-  "Careerquo / Upsquad" => %w[angular typescript nodejs mongodb rest-apis],
-  "CarGo Courier"       => %w[ruby-on-rails ruby postgresql rest-apis],
-  "Buchheit's"          => %w[angular typescript rest-apis],
-  "Hodlit"              => %w[angular typescript bootstrap rest-apis],
-  "SeedStory"           => %w[ruby-on-rails ruby angular typescript react-native postgresql stripe rest-apis],
-  "Shiloh Rentals"      => %w[ruby-on-rails ruby hotwire hotwire-native stripe postgresql]
+  "Traction Studio AI"  => %w[ruby-on-rails ruby hotwire turbo stimulus postgresql redis sidekiq tailwind-css stripe html5 css3 javascript],
+  "IHM Used Parts"      => %w[ruby-on-rails ruby angular typescript postgresql rest-apis authorize-net html5 css3 javascript],
+  "SR Harvesting"       => %w[angular typescript ionic ruby-on-rails ruby postgresql rest-apis html5 css3 javascript],
+  "Parent ProTech"      => %w[ruby-on-rails ruby angular typescript postgresql rest-apis html5 css3 javascript],
+  "PumpTrakr"           => %w[angular typescript ruby-on-rails ruby postgresql rest-apis html5 css3 javascript],
+  "Venku"               => %w[angular typescript dotnet-core hapi-js nodejs mongodb html5 css3 javascript],
+  "CarGo Eats"          => %w[angular typescript rest-apis html5 css3 javascript],
+  "Careerquo / Upsquad" => %w[angular typescript bootstrap angular-material nodejs express mongodb rest-apis html5 css3 javascript],
+  "CarGo Courier"       => %w[ruby-on-rails ruby postgresql rest-apis html5 css3 javascript],
+  "Buchheit's"          => %w[angular typescript rest-apis html5 css3 javascript],
+  "Hodlit"              => %w[angular typescript bootstrap rest-apis html5 css3 javascript],
+  "SeedStory"           => %w[ruby-on-rails ruby angular typescript react-native postgresql stripe rest-apis html5 css3 javascript],
+  "Shiloh Rentals"      => %w[ruby-on-rails ruby hotwire hotwire-native stripe postgresql html5 css3 javascript]
 }
 
 project_tag_map = {
