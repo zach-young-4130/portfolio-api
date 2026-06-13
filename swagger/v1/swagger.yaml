@@ -9,6 +9,12 @@ paths:
       summary: List community items (published only when public; all when authenticated)
       tags:
       - Community Items
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
       responses:
         '200':
           description: ok (authenticated includes drafts)
@@ -37,23 +43,49 @@ paths:
                         year:
                           type: string
                           nullable: true
+                        tech_stack:
+                          type: string
+                          nullable: true
                         position:
                           type: integer
                           nullable: true
                         published:
                           type: boolean
+                        tags:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                              name:
+                                type: string
+                              slug:
+                                type: string
+                            required:
+                            - id
+                            - name
+                            - slug
                       required:
                       - id
                       - title
                       - description
                       - published
+                      - tags
                 required:
                 - community_items
     post:
       summary: Create community item
       tags:
       - Community Items
-      parameters: []
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
       responses:
         '201':
           description: created
@@ -85,16 +117,35 @@ paths:
                     year:
                       type: string
                       nullable: true
+                    tech_stack:
+                      type: string
+                      nullable: true
                     position:
                       type: integer
                       nullable: true
                     published:
                       type: boolean
+                    tags:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          slug:
+                            type: string
+                        required:
+                        - id
+                        - name
+                        - slug
                   required:
                   - id
                   - title
                   - description
                   - published
+                  - tags
               required:
               - community_item
   "/api/v1/community_items/{id}":
@@ -108,7 +159,14 @@ paths:
       summary: Update community item
       tags:
       - Community Items
-      parameters: []
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
       responses:
         '200':
           description: updated
@@ -140,22 +198,49 @@ paths:
                     year:
                       type: string
                       nullable: true
+                    tech_stack:
+                      type: string
+                      nullable: true
                     position:
                       type: integer
                       nullable: true
                     published:
                       type: boolean
+                    tags:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          slug:
+                            type: string
+                        required:
+                        - id
+                        - name
+                        - slug
                   required:
                   - id
                   - title
                   - description
                   - published
+                  - tags
               required:
               - community_item
     delete:
       summary: Destroy community item
       tags:
       - Community Items
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
       responses:
         '204':
           description: destroyed
@@ -197,6 +282,14 @@ paths:
       summary: List unread contact messages
       tags:
       - Contact Messages
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
       responses:
         '200':
           description: ok
@@ -245,6 +338,14 @@ paths:
       summary: Mark a contact message as read
       tags:
       - Contact Messages
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
       responses:
         '200':
           description: marked read
@@ -285,6 +386,12 @@ paths:
       summary: List FAQ items (published only when public; all when authenticated)
       tags:
       - FAQ Items
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
       responses:
         '200':
           description: ok (authenticated includes drafts)
@@ -320,7 +427,14 @@ paths:
       summary: Create FAQ item
       tags:
       - FAQ Items
-      parameters: []
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
       responses:
         '201':
           description: created
@@ -366,7 +480,14 @@ paths:
       summary: Update FAQ item
       tags:
       - FAQ Items
-      parameters: []
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
       responses:
         '200':
           description: updated
@@ -405,9 +526,102 @@ paths:
       summary: Destroy FAQ item
       tags:
       - FAQ Items
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
       responses:
         '204':
           description: destroyed
+        '401':
+          description: unauthenticated
+  "/api/v1/page_views":
+    post:
+      summary: Record a page view
+      tags:
+      - Analytics
+      parameters: []
+      responses:
+        '204':
+          description: ignored (bot user agent)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                page_view:
+                  type: object
+                  properties:
+                    path:
+                      type: string
+                    referrer:
+                      type: string
+                      nullable: true
+                  required:
+                  - path
+              required:
+              - page_view
+  "/api/v1/page_views/stats":
+    get:
+      summary: Get visitor stats (admin only)
+      tags:
+      - Analytics
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  by_country:
+                    type: object
+                  by_city:
+                    type: object
+                  recent:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        path:
+                          type: string
+                        city:
+                          type: string
+                          nullable: true
+                        region:
+                          type: string
+                          nullable: true
+                        country:
+                          type: string
+                          nullable: true
+                        created_at:
+                          type: string
+                      required:
+                      - id
+                      - path
+                      - created_at
+                required:
+                - total
+                - by_country
+                - by_city
+                - recent
         '401':
           description: unauthenticated
   "/api/v1/projects":
@@ -415,6 +629,12 @@ paths:
       summary: List projects (published only when public; all when authenticated)
       tags:
       - Projects
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
       responses:
         '200':
           description: ok (authenticated includes drafts)
@@ -436,6 +656,9 @@ paths:
                           type: string
                         description:
                           type: string
+                        highlights:
+                          type: string
+                          nullable: true
                         tech_stack:
                           type: string
                         cover_image_url:
@@ -454,6 +677,47 @@ paths:
                           nullable: true
                         published:
                           type: boolean
+                        project_start:
+                          type: string
+                          format: date
+                          nullable: true
+                        project_end:
+                          type: string
+                          format: date
+                          nullable: true
+                        technologies:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                              name:
+                                type: string
+                              slug:
+                                type: string
+                              category:
+                                type: string
+                                nullable: true
+                            required:
+                            - id
+                            - name
+                            - slug
+                        tags:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                              name:
+                                type: string
+                              slug:
+                                type: string
+                            required:
+                            - id
+                            - name
+                            - slug
                       required:
                       - id
                       - title
@@ -462,13 +726,22 @@ paths:
                       - tech_stack
                       - featured
                       - published
+                      - technologies
+                      - tags
                 required:
                 - projects
     post:
       summary: Create project
       tags:
       - Projects
-      parameters: []
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
       responses:
         '201':
           description: created
@@ -488,6 +761,9 @@ paths:
                         type: string
                       description:
                         type: string
+                      highlights:
+                        type: string
+                        nullable: true
                       tech_stack:
                         type: string
                       cover_image_url:
@@ -506,6 +782,47 @@ paths:
                         nullable: true
                       published:
                         type: boolean
+                      project_start:
+                        type: string
+                        format: date
+                        nullable: true
+                      project_end:
+                        type: string
+                        format: date
+                        nullable: true
+                      technologies:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            slug:
+                              type: string
+                            category:
+                              type: string
+                              nullable: true
+                          required:
+                          - id
+                          - name
+                          - slug
+                      tags:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            slug:
+                              type: string
+                          required:
+                          - id
+                          - name
+                          - slug
                     required:
                     - id
                     - title
@@ -514,6 +831,8 @@ paths:
                     - tech_stack
                     - featured
                     - published
+                    - technologies
+                    - tags
                 required:
                 - project
         '401':
@@ -537,6 +856,9 @@ paths:
                       type: string
                     description:
                       type: string
+                    highlights:
+                      type: string
+                      nullable: true
                     tech_stack:
                       type: string
                     cover_image_url:
@@ -555,6 +877,47 @@ paths:
                       nullable: true
                     published:
                       type: boolean
+                    project_start:
+                      type: string
+                      format: date
+                      nullable: true
+                    project_end:
+                      type: string
+                      format: date
+                      nullable: true
+                    technologies:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          slug:
+                            type: string
+                          category:
+                            type: string
+                            nullable: true
+                        required:
+                        - id
+                        - name
+                        - slug
+                    tags:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          slug:
+                            type: string
+                        required:
+                        - id
+                        - name
+                        - slug
                   required:
                   - id
                   - title
@@ -563,6 +926,8 @@ paths:
                   - tech_stack
                   - featured
                   - published
+                  - technologies
+                  - tags
               required:
               - project
   "/api/v1/projects/{id}":
@@ -576,6 +941,12 @@ paths:
       summary: Show project (published only when public; any when authenticated)
       tags:
       - Projects
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
       responses:
         '200':
           description: draft visible to authenticated admin
@@ -595,6 +966,9 @@ paths:
                         type: string
                       description:
                         type: string
+                      highlights:
+                        type: string
+                        nullable: true
                       tech_stack:
                         type: string
                       cover_image_url:
@@ -613,6 +987,47 @@ paths:
                         nullable: true
                       published:
                         type: boolean
+                      project_start:
+                        type: string
+                        format: date
+                        nullable: true
+                      project_end:
+                        type: string
+                        format: date
+                        nullable: true
+                      technologies:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            slug:
+                              type: string
+                            category:
+                              type: string
+                              nullable: true
+                          required:
+                          - id
+                          - name
+                          - slug
+                      tags:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            slug:
+                              type: string
+                          required:
+                          - id
+                          - name
+                          - slug
                     required:
                     - id
                     - title
@@ -621,6 +1036,8 @@ paths:
                     - tech_stack
                     - featured
                     - published
+                    - technologies
+                    - tags
                 required:
                 - project
         '404':
@@ -629,7 +1046,14 @@ paths:
       summary: Update project
       tags:
       - Projects
-      parameters: []
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
       responses:
         '200':
           description: updated
@@ -654,6 +1078,9 @@ paths:
                       type: string
                     description:
                       type: string
+                    highlights:
+                      type: string
+                      nullable: true
                     tech_stack:
                       type: string
                     cover_image_url:
@@ -672,6 +1099,47 @@ paths:
                       nullable: true
                     published:
                       type: boolean
+                    project_start:
+                      type: string
+                      format: date
+                      nullable: true
+                    project_end:
+                      type: string
+                      format: date
+                      nullable: true
+                    technologies:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          slug:
+                            type: string
+                          category:
+                            type: string
+                            nullable: true
+                        required:
+                        - id
+                        - name
+                        - slug
+                    tags:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          slug:
+                            type: string
+                        required:
+                        - id
+                        - name
+                        - slug
                   required:
                   - id
                   - title
@@ -680,12 +1148,22 @@ paths:
                   - tech_stack
                   - featured
                   - published
+                  - technologies
+                  - tags
               required:
               - project
     delete:
       summary: Destroy project
       tags:
       - Projects
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
       responses:
         '204':
           description: destroyed
@@ -693,7 +1171,7 @@ paths:
           description: unauthenticated
   "/api/v1/session":
     post:
-      summary: Login (create session)
+      summary: Login (issue JWT)
       tags:
       - Sessions
       parameters: []
@@ -712,13 +1190,43 @@ paths:
                         type: integer
                       email:
                         type: string
+                      name:
+                        type: string
+                        nullable: true
+                      avatar_url:
+                        type: string
+                        nullable: true
+                      role:
+                        type: string
+                        enum:
+                        - user
+                        - admin
                     required:
                     - id
                     - email
+                    - role
+                  token:
+                    type: string
                 required:
                 - user
+                - token
         '401':
-          description: invalid credentials
+          description: account locked after repeated failures
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                  locked_until:
+                    type: string
+                    format: date-time
+                required:
+                - errors
+                - locked_until
       requestBody:
         content:
           application/json:
@@ -733,23 +1241,394 @@ paths:
               - email
               - password
     delete:
-      summary: Logout (destroy session)
+      summary: Logout (client discards token)
       tags:
       - Sessions
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
       responses:
         '204':
           description: logged out
         '401':
-          description: not logged in
+          description: missing or invalid token
     get:
       summary: Current session
       tags:
       - Sessions
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
       responses:
         '200':
           description: authenticated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      email:
+                        type: string
+                      name:
+                        type: string
+                        nullable: true
+                      avatar_url:
+                        type: string
+                        nullable: true
+                      role:
+                        type: string
+                        enum:
+                        - user
+                        - admin
+                    required:
+                    - id
+                    - email
+                    - role
+                required:
+                - user
         '401':
           description: unauthenticated
+  "/api/v1/tags":
+    get:
+      summary: List tags
+      tags:
+      - Tags
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tags:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        slug:
+                          type: string
+                      required:
+                      - id
+                      - name
+                      - slug
+                required:
+                - tags
+    post:
+      summary: Create tag
+      tags:
+      - Tags
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+      responses:
+        '201':
+          description: created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tag:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      slug:
+                        type: string
+                    required:
+                    - id
+                    - name
+                    - slug
+                required:
+                - tag
+        '401':
+          description: unauthenticated
+        '422':
+          description: invalid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tag:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    slug:
+                      type: string
+                  required:
+                  - id
+                  - name
+                  - slug
+              required:
+              - tag
+  "/api/v1/tags/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    patch:
+      summary: Update tag
+      tags:
+      - Tags
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: updated
+        '401':
+          description: unauthenticated
+        '404':
+          description: not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tag:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    slug:
+                      type: string
+                  required:
+                  - id
+                  - name
+                  - slug
+              required:
+              - tag
+    delete:
+      summary: Destroy tag
+      tags:
+      - Tags
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+      responses:
+        '204':
+          description: destroyed
+        '401':
+          description: unauthenticated
+  "/api/v1/technologies":
+    get:
+      summary: List technologies
+      tags:
+      - Technologies
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  technologies:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        slug:
+                          type: string
+                        category:
+                          type: string
+                          nullable: true
+                      required:
+                      - id
+                      - name
+                      - slug
+                required:
+                - technologies
+    post:
+      summary: Create technology
+      tags:
+      - Technologies
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+      responses:
+        '201':
+          description: created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  technology:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      slug:
+                        type: string
+                      category:
+                        type: string
+                        nullable: true
+                    required:
+                    - id
+                    - name
+                    - slug
+                required:
+                - technology
+        '401':
+          description: unauthenticated
+        '422':
+          description: invalid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                technology:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    slug:
+                      type: string
+                    category:
+                      type: string
+                      nullable: true
+                  required:
+                  - id
+                  - name
+                  - slug
+              required:
+              - technology
+  "/api/v1/technologies/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    patch:
+      summary: Update technology
+      tags:
+      - Technologies
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: updated
+        '401':
+          description: unauthenticated
+        '404':
+          description: not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                technology:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    slug:
+                      type: string
+                    category:
+                      type: string
+                      nullable: true
+                  required:
+                  - id
+                  - name
+                  - slug
+              required:
+              - technology
+    delete:
+      summary: Destroy technology
+      tags:
+      - Technologies
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+      responses:
+        '204':
+          description: destroyed
+        '401':
+          description: unauthenticated
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 servers:
 - url: http://{defaultHost}
   variables:

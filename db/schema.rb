@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_06_01_000002) do
+ActiveRecord::Schema[8.0].define(version: 2026_06_13_000001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -92,6 +92,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_01_000002) do
     t.datetime "updated_at", null: false
     t.date "project_start"
     t.date "project_end"
+    t.text "highlights"
     t.index "((((setweight(to_tsvector('simple'::regconfig, (COALESCE(title, ''::character varying))::text), 'A'::\"char\") || setweight(to_tsvector('simple'::regconfig, (COALESCE(tagline, ''::character varying))::text), 'A'::\"char\")) || setweight(to_tsvector('simple'::regconfig, (COALESCE(tech_stack, ''::character varying))::text), 'B'::\"char\")) || setweight(to_tsvector('simple'::regconfig, COALESCE(description, ''::text)), 'C'::\"char\")))", name: "index_projects_on_fts", using: :gin
     t.index ["position"], name: "index_projects_on_position"
     t.index ["published"], name: "index_projects_on_published"

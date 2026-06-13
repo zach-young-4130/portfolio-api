@@ -14,4 +14,13 @@ module AuthHelpers
   def auth_headers
     @auth_headers || {}
   end
+
+  # rswag's request factory resolves every declared header parameter by sending
+  # its name to the example — including optional ones. The "unauthenticated"
+  # examples intentionally omit `let(:Authorization)`, so without this default
+  # rswag raises NoMethodError instead of sending the request with no token.
+  # Authenticating examples override this with their own `let(:Authorization)`.
+  def Authorization
+    nil
+  end
 end
