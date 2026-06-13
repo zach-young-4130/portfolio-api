@@ -1,5 +1,6 @@
 class Project < ApplicationRecord
   normalizes :title, :tagline, :description, with: ->(v) { v.strip }
+  normalizes :highlights, with: ->(v) { v&.strip }
 
   has_many :project_technologies, -> { order(:position) }, dependent: :destroy
   has_many :technologies, through: :project_technologies

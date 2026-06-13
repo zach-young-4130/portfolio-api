@@ -33,5 +33,17 @@ RSpec.describe Project, type: :model do
       project = create(:project, title: "  My Project  ")
       expect(project.title).to eq("My Project")
     end
+
+    it "strips surrounding whitespace on highlights" do
+      project = create(:project, highlights: "  First.\nSecond.  ")
+      expect(project.highlights).to eq("First.\nSecond.")
+    end
+  end
+
+  describe "highlights" do
+    it "is optional" do
+      project = build(:project, highlights: nil)
+      expect(project).to be_valid
+    end
   end
 end

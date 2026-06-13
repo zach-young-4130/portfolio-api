@@ -7,6 +7,7 @@ PROJECT_SCHEMA = {
     title: { type: :string },
     tagline: { type: :string },
     description: { type: :string },
+    highlights: { type: :string, nullable: true },
     tech_stack: { type: :string },
     cover_image_url: { type: :string, nullable: true },
     live_url: { type: :string, nullable: true },
@@ -104,11 +105,13 @@ RSpec.describe "api/v1/projects", type: :request do
 
       response(201, "created") do
         let(:user) { create(:user, :admin, password: "password1234") }
-        let(:project) { { project: attributes_for(:project) } }
+        let(:project) { { project: attributes_for(:project, highlights: "Shipped it.\nScaled it.") } }
         before { login_as(user) }
         let(:Authorization) { @auth_headers["Authorization"] }
         schema type: :object, properties: { project: PROJECT_SCHEMA }, required: %w[project]
-        run_test!
+        run_test! do |response|
+          expect(JSON.parse(response.body)["project"]["highlights"]).to eq("Shipped it.\nScaled it.")
+        end
       end
 
       response(401, "unauthenticated") do
