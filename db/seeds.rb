@@ -275,6 +275,26 @@ projects = [
     published: true,
     project_start: "2026-02-01",
     project_end: "2026-02-28"
+  },
+  {
+    title: "Zoo Digital",
+    tagline: "A Rails 8 full-stack studio site with a live availability calendar.",
+    description: "A work-in-progress full-stack Rails 8.1 application I'm building to showcase my Rails experience — the site for Zoo Digital, a software engineering contract studio (“We build software that ships fast”). Built entirely with Hotwire — Turbo and Stimulus — and Bootstrap for the CSS framework, with no separate JS framework. The standout feature is a live availability calendar that publishes real project capacity day-by-day; alongside it are a services catalog with dedicated detail pages, case-study work pages, an about section, and client testimonials.",
+    highlights: <<~HIGHLIGHTS,
+      Built full-stack on Rails 8.1 with Hotwire (Turbo + Stimulus) — server-rendered, real-time UI with no separate JS framework.
+      Live availability calendar publishing real project capacity, color-coded by day with month navigation and a book-a-slot flow.
+      Services catalog with dedicated per-service detail pages, plus case-study work pages and client testimonials.
+      Styled with Bootstrap — an ongoing work-in-progress showcasing production Rails full-stack craft.
+    HIGHLIGHTS
+    tech_stack: "Rails 8.1, Hotwire, Turbo, Stimulus, Bootstrap, PostgreSQL",
+    cover_image_url: "/screenshots/zoo-digital.jpg",
+    live_url: "https://zoo-digital.dev",
+    repo_url: nil,
+    featured: false,
+    position: 14,
+    published: true,
+    project_start: "2026-04-01",
+    project_end: nil
   }
 ]
 
@@ -513,7 +533,8 @@ project_tech_map = {
   "Buchheit's"          => %w[angular typescript rest-apis html5 css3 javascript],
   "Hodlit"              => %w[angular typescript bootstrap rest-apis html5 css3 javascript],
   "SeedStory"           => %w[ruby-on-rails ruby angular typescript react-native postgresql stripe rest-apis html5 css3 javascript],
-  "Shiloh Rentals"      => %w[ruby-on-rails ruby hotwire hotwire-native stripe postgresql html5 css3 javascript]
+  "Shiloh Rentals"      => %w[ruby-on-rails ruby hotwire hotwire-native stripe postgresql html5 css3 javascript],
+  "Zoo Digital"         => %w[ruby-on-rails ruby hotwire turbo stimulus bootstrap postgresql html5 css3 javascript]
 }
 
 project_tag_map = {
